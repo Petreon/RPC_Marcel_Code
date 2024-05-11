@@ -1,0 +1,35 @@
+Não iremos nos preocupar com funções para entrada e saida de dados agora
+
+Lista de Funções:
+- nor(double,double,double) ## função apra normalização de dados
+- randperm()
+- RecalcRPC() !! ## essa funcao depende de outras então ela será uma das ultimas
+
+- OBSERVAÇÃO: O Octave tem uma maneira especial de lidar com matrizes e arrays e essa é a Sintaxe
+que o SORTITION está utilizando, nós vamos ter q entender o que isso está fazendo e criar uma função pra ela
+basicamente é como se o costructor da Matriz ou array pudesse dar 2 entradas e retornasse um novo
+
+- SORTITION(Array_antigo, : ) ## tem que achar onde ela está ou saber o que ela está fazendo descorbir oq é esses :
+
+## Funcoes dentro de RecalcRPC()
+- polrfm() !!
+- desnor()
+- Affine() !!
+## Se acharem uma biblioteca boa pra manipulação de matrizes podem ir testando nas funções
+- zeros() ## manipualção de matrizes
+- ones()
+- mmq()
+- inv()
+
+- img2terrain() !! ## Operação de matrizes Pura
+## Funcoes dentro de img2terrain()
+- nor()
+- deriv_L()
+- deriv_B()
+- deriv_H()
+- mmq()
+
+- latlong2utm() !!
+- std() ## standard deviation 
+- abs() ## essa acredito que ja tenha em C++
+- mean() 
