@@ -1,5 +1,6 @@
 // Include libraries and functions
 #include "../includes/Eigen/Dense"
+#include "mmq.cpp"
 #include <iostream>
 
 // functions
@@ -18,35 +19,52 @@ AffineReturn Affine(Eigen::MatrixXd Line, Eigen::MatrixXd Sample, Eigen::MatrixX
     all the matrixes are 4x1, so the lines are dynamic but the row always 1
     */
     AffineReturn Xa_V_Matrixes;
+    int rows_size = Line.rows(); // Nx1 matrix
 
-    Eigen::MatrixXd A_matrix(Line.rows(), 6);
     // std::cout << Line << std::endl;
     // std::cout << Sample << std::endl;
 
-    A_matrix << Eigen::MatrixXd::Ones(Line.rows(), 1),
+    Eigen::MatrixXd A_matrix(rows_size, 6);
+    // creating a matrix 4x6 111, line, sample e zeros
+    A_matrix << Eigen::MatrixXd::Ones(rows_size, 1),
         Line,
         Sample,
-        Eigen::MatrixXd::Zero(Line.rows(), 1),
-        Eigen::MatrixXd::Zero(Line.rows(), 1),
-        Eigen::MatrixXd::Zero(Line.rows(), 1);
+        Eigen::MatrixXd::Zero(rows_size, 1),
+        Eigen::MatrixXd::Zero(rows_size, 1),
+        Eigen::MatrixXd::Zero(rows_size, 1);
 
     int num_rows = A_matrix.rows();
 
-    Eigen::MatrixXd new_rows(Line.rows(), 6);
-    new_rows << Eigen::MatrixXd::Zero(Line.rows(), 1),
-        Eigen::MatrixXd::Zero(Line.rows(), 1),
-        Eigen::MatrixXd::Zero(Line.rows(), 1),
-        Eigen::MatrixXd::Ones(Line.rows(), 1),
+    // creating a new 4x6 matrix to append in the A matrix
+    Eigen::MatrixXd new_rows(rows_size, 6);
+
+    new_rows << Eigen::MatrixXd::Zero(rows_size, 1),
+        Eigen::MatrixXd::Zero(rows_size, 1),
+        Eigen::MatrixXd::Zero(rows_size, 1),
+        Eigen::MatrixXd::Ones(rows_size, 1),
         Line,
         Sample;
 
     // Resize A to accommodate the new rows
-    A_matrix.conservativeResize(A_matrix.rows() + Line.rows(), 6);
+    A_matrix.conservativeResize(A_matrix.rows() + rows_size, 6);
 
     // Append the new rows to A
-    A_matrix.block(num_rows, 0, Line.rows(), 6) = new_rows;
+    A_matrix.block(num_rows, 0, rows_size, 6) = new_rows;
 
-    std::cout << A_matrix << std::endl;
+    // std::cout << A_matrix << std::endl;
+
+    // Constructing a L Matrix for itx a 2Nx1 matrix
+
+    Eigen::MatrixXd L(2 * rows_size, 1);
+    // subtracting the matrixes
+    Eigen::MatrixXd line_LineMeas = Line - LineMeas;
+    Eigen::MatrixXd Sample_SampleMeas = Sample - SampleMeas;
+    // std::cout << line_LineMeas << std::endl;
+
+    // substituing the values in L Matrix
+    L.block(0, 0, line_LineMeas.rows(), 1) = line_LineMeas;
+    L.block(4, 0, line_LineMeas.rows(), 1) = Sample_SampleMeas;
+    // std::cout << L << std::endl;
 
     return Xa_V_Matrixes;
 };
