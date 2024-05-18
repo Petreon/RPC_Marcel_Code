@@ -5,8 +5,6 @@
 // use the function nor with Asserts librarie, if we change this project to CMAKE we will use, CTEST probably
 // but in the init use this way
 
-using Eigen::MatrixXd;
-
 /*
 HOW TO COMPILE THIS PROGRAM
 COMAND
@@ -20,7 +18,7 @@ int main()
 
     Eigen::Matrix<double, 4, 4> mat;
 
-    MatrixXd m(2, 2);
+    Eigen::MatrixXd m(2, 2);
     m(0, 0) = 3;
     m(1, 0) = 2.5;
     m(0, 1) = -1;
