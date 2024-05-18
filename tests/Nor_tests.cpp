@@ -16,7 +16,7 @@ maybe this is temporary
 
 int main()
 {
-    Normalization(); // Nor.cpp function
+    GeodeticNormalization(100, 100, 100); // Nor.cpp function
 
     Eigen::Matrix<double, 4, 4> mat;
 
