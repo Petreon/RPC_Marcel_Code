@@ -18,6 +18,8 @@ int main()
 {
     Normalization(); // Nor.cpp function
 
+    Eigen::Matrix<double, 4, 4> mat;
+
     MatrixXd m(2, 2);
     m(0, 0) = 3;
     m(1, 0) = 2.5;
