@@ -40,4 +40,11 @@ int main()
     // Eigen have an affine, but i dont know how to use kkkk
 
     AffineReturn XA_V = Affine(li, si, l0i, s0i);
+
+    std::cout << XA_V.Xa << std::endl;
+    std::cout << "----------------" << std::endl;
+
+    std::cout << XA_V.V << std::endl;
+
+    return 0;
 }

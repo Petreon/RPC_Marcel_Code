@@ -55,16 +55,21 @@ AffineReturn Affine(Eigen::MatrixXd Line, Eigen::MatrixXd Sample, Eigen::MatrixX
 
     // Constructing a L Matrix for itx a 2Nx1 matrix
 
-    Eigen::MatrixXd L(2 * rows_size, 1);
+    Eigen::MatrixXd L_matrix(2 * rows_size, 1);
     // subtracting the matrixes
     Eigen::MatrixXd line_LineMeas = Line - LineMeas;
     Eigen::MatrixXd Sample_SampleMeas = Sample - SampleMeas;
     // std::cout << line_LineMeas << std::endl;
 
     // substituing the values in L Matrix
-    L.block(0, 0, line_LineMeas.rows(), 1) = line_LineMeas;
-    L.block(4, 0, line_LineMeas.rows(), 1) = Sample_SampleMeas;
+    L_matrix.block(0, 0, line_LineMeas.rows(), 1) = line_LineMeas;
+    L_matrix.block(4, 0, line_LineMeas.rows(), 1) = Sample_SampleMeas;
     // std::cout << L << std::endl;
+
+    mmqReturn mmqOperation = mmq(A_matrix, L_matrix);
+
+    Xa_V_Matrixes.Xa = mmqOperation.Xa;
+    Xa_V_Matrixes.V = mmqOperation.V;
 
     return Xa_V_Matrixes;
 };

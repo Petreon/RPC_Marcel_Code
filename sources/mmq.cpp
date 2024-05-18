@@ -10,6 +10,7 @@ typedef struct mmqReturn
 // what is this operation?
 mmqReturn mmq(Eigen::MatrixXd A, Eigen::MatrixXd L)
 {
+    /*I dont know the objective of this function but do this operations*/
     // this function is ready
     mmqReturn ObjReturned;
 
