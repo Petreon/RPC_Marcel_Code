@@ -13,15 +13,22 @@ typedef struct norm_values{
     long off;
 } CorrectionValues;
 
+
+typedef struct imgpoints{
+    long x;
+    long y;
+} Ponto;
+
 // functions
+
 /*
 function to take the a general value related to each 
 point (lat, long, height, line, collumn, for example) and normalize them
 */
-
 long ElementNormalization(long value, long CorrectionFactor, long ScaleFactor){
     return ((value - CorrectionFactor) / ScaleFactor);
 }
+
 
 /*
 Function to normalize each element of the matrix

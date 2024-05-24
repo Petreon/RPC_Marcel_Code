@@ -22,17 +22,15 @@ int main()
 
     ElementNormalization(100, 100, 100); // Nor.cpp function
 
-    Eigen::Matrix<long, 4, 4> mat;
+    Eigen::Matrix<Ponto, 4, 4> mat;
+    mat(0, 0) = {4,3};
+    mat(1, 0) = {2,3};
+    mat(0, 1) = {-1,3};
+    mat(1, 1) = {2,-1};
 
-    Eigen::MatrixXd m(2, 2);
-    m(0, 0) = 3;
-    m(1, 0) = 2.5;
-    m(0, 1) = -1;
-    m(1, 1) = m(1, 0) + m(0, 1);
+    std::cout <<"Matrix pre normalizacao:\n" << mat << "\n" << std::endl;
 
-    std::cout <<"Matrix pre normalizacao:\n" << m << "\n" << std::endl;
-
-    std::cout <<"Matrix pos normalizacao:\n" <<  ImgNormalization(m,correcao) << "\n" <<std::endl;
+    std::cout <<"Matrix pos normalizacao:\n" <<  ImgNormalization(mat,correcao) << "\n" <<std::endl;
 
     return 0;
 }
