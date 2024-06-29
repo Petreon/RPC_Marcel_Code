@@ -1,11 +1,6 @@
 #include "../includes/Eigen/Dense"
 #include <iostream>
-
-typedef struct mmqReturn
-{
-    Eigen::MatrixXd Xa;
-    Eigen::MatrixXd V;
-} mmqReturn;
+#include "structs.h"
 
 // what is this operation?
 mmqReturn mmq(Eigen::MatrixXd A, Eigen::MatrixXd L)
