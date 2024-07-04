@@ -9,9 +9,11 @@
 AffineReturn Affine(Eigen::MatrixXd Line, Eigen::MatrixXd Sample, Eigen::MatrixXd LineMeas, Eigen::MatrixXd SampleMeas)
 {
     /*
-    This function enter 4 matrix and return 2 matrix
+    This function enter 4 matrices and return 2 matrices
+
     The size of Matrix is defined from the Test points that you enter in the main function
-    all the matrixes are 4x1, so the lines are dynamic but the row always 1
+    all the matrixes are 4x1, so the rows are dynamic but the columns always 1
+    Nx1 matrices
     */
     AffineReturn Xa_V_Matrixes;
     int rows_size = Line.rows(); // Nx1 matrix
@@ -61,8 +63,10 @@ AffineReturn Affine(Eigen::MatrixXd Line, Eigen::MatrixXd Sample, Eigen::MatrixX
     L_matrix.block(4, 0, line_LineMeas.rows(), 1) = Sample_SampleMeas;
     // std::cout << L << std::endl;
 
+    // what is mmq operation
     mmqReturn mmqOperation = mmq(A_matrix, L_matrix);
 
+    // Xa need to be 6x1 and V 8x1
     Xa_V_Matrixes.Xa = mmqOperation.Xa;
     Xa_V_Matrixes.V = mmqOperation.V;
 

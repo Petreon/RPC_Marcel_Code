@@ -5,7 +5,7 @@
 // use the function nor with Asserts libraries, if we change this project to CMAKE we will use CTEST probably
 // but in the init use this way
 
-// g++ -g -Wall -I ..\includes\Eigen\Eigen ..\sources\*.cpp .\Affine_tests.cpp -o Affine_tests
+// g++ -g -Wall -I ..\includes\Eigen\Eigen .\Affine_tests.cpp -o Affine_tests
 
 int main()
 {
@@ -40,11 +40,13 @@ int main()
     // Eigen have an affine, but i dont know how to use kkkk
 
     AffineReturn XA_V = Affine(li, si, l0i, s0i);
+    std::cout << "----------------" << std::endl;
 
     std::cout << XA_V.Xa << std::endl;
     std::cout << "----------------" << std::endl;
 
     std::cout << XA_V.V << std::endl;
+    // for this test Xa need to be 6x1 and V 8x1
 
     return 0;
 }
