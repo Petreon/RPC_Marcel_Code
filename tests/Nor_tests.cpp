@@ -19,7 +19,7 @@ int main()
     line.off = 1; line.scale = 2;
     collumn.off = 3; collumn.scale = 1;
 
-    CorrectionValues correcao[] = {line,collumn}; 
+ 
 
     ElementNormalization(100, 100, 100); // Nor.cpp function
 
@@ -31,7 +31,7 @@ int main()
 
     std::cout <<"Matrix pre normalizacao:\n" << mat << "\n" << std::endl;
 
-    std::cout <<"Matrix pos normalizacao:\n" <<  ImgNormalization(mat,correcao) << "\n" <<std::endl;
+    std::cout <<"Matrix pos normalizacao:\n" <<  Normalization(mat,line) << "\n" <<std::endl;
 
     return 0;
 }
