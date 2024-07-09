@@ -18,3 +18,10 @@ typedef struct AffineReturn
     Eigen::MatrixXd Xa;
     Eigen::MatrixXd V;
 } AffineReturn;
+
+typedef struct Coordinates
+{
+    Eigen::MatrixXd Lat;
+    Eigen::MatrixXd Long;
+    Eigen::MatrixXd altitude;
+}
