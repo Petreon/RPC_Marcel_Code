@@ -22,10 +22,9 @@ long ElementNormalization(long value, long OffSetFactor, long ScaleFactor)
 
 /*
 Function to normalize each element of the matrix
-The function takes an array that holds the offset and scale correction values for each property
-like line, collumn, latitude, etc.
+The function takes a struct that holds the offset and scale values for a property
 */
-Eigen::MatrixXd ImgNormalization(Eigen::MatrixXd img, CorrectionValues correction[])
+Eigen::MatrixXd Normalization(Eigen::MatrixXd img, CorrectionValues correction)
 {
     int row = img.rows();
     int col = img.cols();
@@ -34,7 +33,7 @@ Eigen::MatrixXd ImgNormalization(Eigen::MatrixXd img, CorrectionValues correctio
     {
         for (int j = 0; j < col; j++)
         {
-            img(i, j) = ElementNormalization(img(i, j), correction[0].off, correction[0].scale);
+            img(i, j) = ElementNormalization(img(i, j), correction.off, correction.scale);
         }
     }
     return img;

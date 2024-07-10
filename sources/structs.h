@@ -24,4 +24,4 @@ typedef struct Coordinates
     Eigen::MatrixXd Lat;
     Eigen::MatrixXd Long;
     Eigen::MatrixXd altitude;
-}
+} Coordinates;
