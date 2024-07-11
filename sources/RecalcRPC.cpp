@@ -2,6 +2,7 @@
 #include "../includes/Eigen/Dense"
 #include "Affine.cpp"
 #include <iostream>
+#include "Polrfm.cpp"
 
 typedef struct RecalcReturn
 {
@@ -10,6 +11,13 @@ typedef struct RecalcReturn
 } RecalcReturn;
 
 // functions
-void RecalcRPC() {
-
+void RecalcRPC()
+{
+    std::cout << "alloooo";
+    std::cout << "alloooo";
+    std::cout << "alloooo";
+    std::cout << "alloooo";
+    std::cout << "alloooo";
+    std::cout << "alloooo";
+    std::cout << "alloooo";
 };

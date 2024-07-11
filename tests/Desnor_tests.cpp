@@ -1,7 +1,6 @@
 // Inlcude Nor
 #include <iostream>
 #include "../includes/Eigen/Dense"
-#include "../includes/Eigen/Geometry"
 #include "../sources/Desnor.cpp"
 #include "../sources/Nor.cpp"
 #include "../sources/structs.h"
