@@ -15,9 +15,4 @@ void RecalcRPC()
 {
     std::cout << "alloooo";
     std::cout << "alloooo";
-    std::cout << "alloooo";
-    std::cout << "alloooo";
-    std::cout << "alloooo";
-    std::cout << "alloooo";
-    std::cout << "alloooo";
 };
