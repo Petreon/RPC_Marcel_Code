@@ -33,12 +33,11 @@ int main()
         -43.227,
         -43.236;
 
-    std::cout << latitute << std::endl;
-    std::cout << "_______________" << std::endl;
-    std::cout << longitute << std::endl;
-    std::cout << "_______________" << std::endl;
+    // std::cout << latitute << std::endl;
+    // std::cout << "_______________" << std::endl;
+    // std::cout << longitute << std::endl;
+    // std::cout << "_______________" << std::endl;
 
-    LatLong2UTM(latitute, longitute);
-    // CoordinatesUTM coordinatesConverted = LatLong2UTM(latitute, longitute);
+    CoordinatesUTM coordinatesConverted = LatLong2UTM(latitute, longitute);
     return 0;
 }
