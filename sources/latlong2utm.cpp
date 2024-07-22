@@ -31,6 +31,56 @@ double CalculateA4(double e1_square2, double e1_square4, double e1_square6, doub
     return A4;
 }
 
+double CalculateA6(double e1_square6, double e1_square8)
+{
+    // doing this operation
+    //  35 / 3072 * ( e1^6-41 / 32*e1^8 ) ;
+    double A6 = 0;
+    A6 = (double)35 / 3072 * (e1_square6 - (double)41 / 32 * e1_square8);
+    return A6;
+}
+
+double CalculateA8(double e1_square8)
+{
+    // doing this operation
+    //  -315/131072*e1^8;
+    double A8 = 0;
+    A8 = (double)-315 / 131072 * e1_square8;
+    return A8;
+}
+
+Eigen::MatrixXd CalculateB(Eigen::MatrixXd LatitutePoints, double a_value, double A0, double A2, double A4, double A6, double A8)
+{
+    // doing this operation (octave)
+    // B = a*(A0*lat - A2*sin(2*lat) + A4*sin(4*lat) - A6*sin(6*lat) + A8*sin(8*lat));
+    Eigen::MatrixXd B;
+
+    Eigen::MatrixXd Lat_points_2sen = 2 * LatitutePoints;
+    // std::cout << Lat_points_2sen << std::endl;
+    Lat_points_2sen = LatitutePoints.array().sin();
+    // std::cout << Lat_points_2sen << std::endl;
+    Eigen::MatrixXd Lat_points_4sen = 4 * LatitutePoints;
+    Lat_points_2sen = LatitutePoints.array().sin();
+
+    Eigen::MatrixXd Lat_points_6sen = 6 * LatitutePoints;
+    Lat_points_2sen = LatitutePoints.array().sin();
+
+    Eigen::MatrixXd Lat_points_8sen = 8 * LatitutePoints;
+    Lat_points_2sen = LatitutePoints.array().sin();
+
+    // ATTENTION, CALCULOS DOENST FIT HERE, the result in octave was
+    //-2.535e+06
+    //-2.5429e+06
+    //-2.5349e+06
+    //-2.5361e+06
+    // and he is almost sum 0.07 above like -2.54028e+06
+    B = a_value * (A0 * LatitutePoints - A2 * Lat_points_2sen + A4 * Lat_points_4sen - A6 * Lat_points_6sen + A8 * Lat_points_8sen);
+
+    // std::cout << "_____________" << std::endl;
+    // std::cout << B << std::endl;
+    return B;
+}
+
 // functions
 CoordinatesUTM LatLong2UTM(Eigen::MatrixXd LatitutePoints, Eigen::MatrixXd LongitutePoints)
 {
@@ -53,8 +103,8 @@ CoordinatesUTM LatLong2UTM(Eigen::MatrixXd LatitutePoints, Eigen::MatrixXd Longi
     double e2 = std::sqrt((a_square - b_square) / b_square); // OK
 
     // changing latitute and longitute to radians
-    LatitutePoints = LatitutePoints * (PI / 180);
-    LongitutePoints = LongitutePoints * (PI / 180); // its working
+    LatitutePoints = LatitutePoints * (PI / 180);   // lat variable
+    LongitutePoints = LongitutePoints * (PI / 180); // its working , long variable
 
     // transformation parameters operation(octave) -> n = sqrt( e2^2 * cos(lat) .* cos(lat) );
     double e1_square2 = pow(e1, 2);
@@ -103,7 +153,23 @@ CoordinatesUTM LatLong2UTM(Eigen::MatrixXd LatitutePoints, Eigen::MatrixXd Longi
 
     double A0 = CalculateA0(e1_square2, e1_square4, e1_square6, e1_square8); // OK Checked
     double A2 = CalculateA2(e1_square2, e1_square4, e1_square6, e1_square8); // OK Checked
-    double A4 = CalculateA4(e1_square2, e1_square4, e1_square6, e1_square8);
+    double A4 = CalculateA4(e1_square2, e1_square4, e1_square6, e1_square8); // OK Checked
+    double A6 = CalculateA6(e1_square6, e1_square8);                         // OK checked
+    double A8 = CalculateA8(e1_square8);                                     // OK checked
+
+    // Calculate B
+    Eigen::MatrixXd B = CalculateB(LatitutePoints, a, A0, A2, A4, A6, A8);
+
+    // Calculating F (Fuse), why it round the numbers?
+    // doing these operations
+    // F = pi/(6*(pi/180)) + fix(long/(6*(pi/180)));
+    Eigen::MatrixXd Longitute_points_round = LongitutePoints / (6 * (PI / (double)180));
+    Longitute_points_round = Longitute_points_round.array().round();
+
+    // element-wise operation
+    Eigen::MatrixXd F = PI / (6 * (PI / 180)) + Longitute_points_round.array();
+    // std::cout << F << std::endl; //checked OK
+
     /*
     std::cout << "_______________" << std::endl;
     std::cout << LatitutePoints << std::endl;
