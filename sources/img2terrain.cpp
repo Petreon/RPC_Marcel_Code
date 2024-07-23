@@ -38,6 +38,8 @@ Coordinates SpacialInterssection(Eigen::MatrixXd aCoefImg1, Eigen::MatrixXd bCoe
     to aproximate initial values for the line and collumn of the pixel in the image.
  */
 
+    //LINE POLINOMIAL
+
     a0_Img1 =   aCoefImg1[0] * longCorrection1.scale * latCorrection1.scale * hCorrection1.scale - 
                 aCoefImg1[1] * longCorrection1.off * latCorrection1.scale * hCorrection1.scale - 
                 aCoefImg1[2] * longCorrection1.scale * latCorrection1.off * hCorrection1.scale -
@@ -61,7 +63,7 @@ Coordinates SpacialInterssection(Eigen::MatrixXd aCoefImg1, Eigen::MatrixXd bCoe
 
     b3_Img1 =   bCoefImg1[3] * longCorrection1.scale * latCorrection1.scale;
 
-
+    //COLLUMN POLINOMIAL
     c0_Img1 =   cCoefImg1[0] * longCorrection1.scale * latCorrection1.scale * hCorrection1.scale - 
                 cCoefImg1[1] * longCorrection1.off * latCorrection1.scale * hCorrection1.scale - 
                 cCoefImg1[2] * longCorrection1.scale * latCorrection1.off * hCorrection1.scale -
