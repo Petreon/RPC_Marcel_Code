@@ -85,4 +85,9 @@ Coordinates SpacialInterssection(Eigen::MatrixXd aCoefImg1, Eigen::MatrixXd bCoe
 
     d3_Img1 =   dCoefImg1[3] * longCorrection1.scale * latCorrection1.scale;
 
+    for (int i = 0; i < Line1.rows(); i++)
+    {
+        
+    }
+    
 }
