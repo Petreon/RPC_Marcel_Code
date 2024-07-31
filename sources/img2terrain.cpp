@@ -36,77 +36,137 @@ Coordinates SpacialInterssection(Eigen::MatrixXd aCoefImg1, Eigen::MatrixXd bCoe
     Eigen::MatrixXd l2 = Normalization(Line1, l2Correction);
     Eigen::MatrixXd s2 = Normalization(Line1, s2Correction);
     
-// Initial Aproximation
-/*
-    This section uses the first 4 coeficients of the Polinomial Rational Function 
-    to aproximate initial values for the line and collumn of the pixel in the image.
- */
 
-    //LINE (l) POLINOMIAL
+
+///FIRST IMAGE///
+
     /*
-    a and b correspond to the coeficients of 
-    the numerator and denominator respectively
+        This section uses the first 4 coeficients of the Polinomial Rational Function 
+        to aproximate initial values for the line and collumn of the pixel in both images.
+    */
+
+    /*
+    LINE (l) POLINOMIAL
+        a and b correspond to the coeficients of 
+        the numerator and denominator respectively
 
     At the end, line should be
-    l = (a0_Img1 + a1_Img1 + a2_Img1 + a3_Img1) / (b0_Img1 + b1_Img1 + b2_Img1 + b3_Img1)
+        l = (a0_Img1 + a1_Img1 + a2_Img1 + a3_Img1) / (b0_Img1 + b1_Img1 + b2_Img1 + b3_Img1)
     */
 
-    a0_Img1 =   aCoefImg1[0] * longCorrection1.scale * latCorrection1.scale * hCorrection1.scale - 
-                aCoefImg1[1] * longCorrection1.off * latCorrection1.scale * hCorrection1.scale - 
-                aCoefImg1[2] * longCorrection1.scale * latCorrection1.off * hCorrection1.scale -
-                aCoefImg1[3] * longCorrection1.scale * latCorrection1.scale * hCorrection1.off;
+    double a0_Img1 =   aCoefImg1(0,0) * longCorrection1.scale * latCorrection1.scale * hCorrection1.scale - 
+                                aCoefImg1[1] * longCorrection1.off * latCorrection1.scale * hCorrection1.scale - 
+                                aCoefImg1[2] * longCorrection1.scale * latCorrection1.off * hCorrection1.scale -
+                                aCoefImg1[3] * longCorrection1.scale * latCorrection1.scale * hCorrection1.off;
     
-    a1_Img1 =   aCoefImg1[1] * latCorrection1.scale * hCorrection1.scale;
+    double a1_Img1 =   aCoefImg1[1] * latCorrection1.scale * hCorrection1.scale;
 
-    a2_Img1 =   aCoefImg1[2] * longCorrection1.scale * hCorrection1.scale;
+    double a2_Img1 =   aCoefImg1[2] * longCorrection1.scale * hCorrection1.scale;
 
-    a3_Img1 =   aCoefImg1[3] * longCorrection1.scale * latCorrection1.scale;
+    double a3_Img1 =   aCoefImg1[3] * longCorrection1.scale * latCorrection1.scale;
 
 
-    b0_Img1 =                * longCorrection1.scale * latCorrection1.scale * hCorrection1.scale - 
-                bCoefImg1[1] * longCorrection1.off * latCorrection1.scale * hCorrection1.scale - 
-                bCoefImg1[2] * longCorrection1.scale * latCorrection1.off * hCorrection1.scale -
-                bCoefImg1[3] * longCorrection1.scale * latCorrection1.scale * hCorrection1.off;
+    double b0_Img1 =                * longCorrection1.scale * latCorrection1.scale * hCorrection1.scale - 
+                                bCoefImg1[1] * longCorrection1.off * latCorrection1.scale * hCorrection1.scale - 
+                                bCoefImg1[2] * longCorrection1.scale * latCorrection1.off * hCorrection1.scale -
+                                bCoefImg1[3] * longCorrection1.scale * latCorrection1.scale * hCorrection1.off;
     
-    b1_Img1 =   bCoefImg1[1] * latCorrection1.scale * hCorrection1.scale;
+    double b1_Img1 =   bCoefImg1[1] * latCorrection1.scale * hCorrection1.scale;
 
-    b2_Img1 =   bCoefImg1[2] * longCorrection1.scale * hCorrection1.scale;
+    double b2_Img1 =   bCoefImg1[2] * longCorrection1.scale * hCorrection1.scale;
 
-    b3_Img1 =   bCoefImg1[3] * longCorrection1.scale * latCorrection1.scale;
+    double b3_Img1 =   bCoefImg1[3] * longCorrection1.scale * latCorrection1.scale;
 
-    //COLLUMN (s) POLINOMIAL
+
+
     /*
-    c and d correspond to the coeficients of 
-    the numerator and d=enominator respectively
+    COLLUMN (s) POLINOMIAL
+        c and d correspond to the coeficients of 
+        the numerator and d=enominator respectively
 
     At the end, collumn should be
-    s = (c0_Img2 + c1_Img2 + c2_Img2 + c3_Img2) / (d0_Img2 + d1_Img2 + d2_Img2 + d3_Img2)
+        s = (c0_Img2 + c1_Img2 + c2_Img2 + c3_Img2) / (d0_Img2 + d1_Img2 + d2_Img2 + d3_Img2)
     */
 
-    c0_Img1 =   cCoefImg1[0] * longCorrection1.scale * latCorrection1.scale * hCorrection1.scale - 
-                cCoefImg1[1] * longCorrection1.off * latCorrection1.scale * hCorrection1.scale - 
-                cCoefImg1[2] * longCorrection1.scale * latCorrection1.off * hCorrection1.scale -
-                cCoefImg1[3] * longCorrection1.scale * latCorrection1.scale * hCorrection1.off;
+    double c0_Img1 =   cCoefImg1[0] * longCorrection1.scale * latCorrection1.scale * hCorrection1.scale - 
+                                cCoefImg1[1] * longCorrection1.off * latCorrection1.scale * hCorrection1.scale - 
+                                cCoefImg1[2] * longCorrection1.scale * latCorrection1.off * hCorrection1.scale -
+                                cCoefImg1[3] * longCorrection1.scale * latCorrection1.scale * hCorrection1.off;
     
-    c1_Img1 =   cCoefImg1[1] * latCorrection1.scale * hCorrection1.scale;
+    double c1_Img1 =   cCoefImg1[1] * latCorrection1.scale * hCorrection1.scale;
 
-    c2_Img1 =   cCoefImg1[2] * longCorrection1.scale * hCorrection1.scale;
+    double c2_Img1 =   cCoefImg1[2] * longCorrection1.scale * hCorrection1.scale;
 
-    c3_Img1 =   cCoefImg1[3] * longCorrection1.scale * latCorrection1.scale;
+    double c3_Img1 =   cCoefImg1[3] * longCorrection1.scale * latCorrection1.scale;
 
 
-    d0_Img1 =                * longCorrection1.scale * latCorrection1.scale * hCorrection1.scale - 
-                dCoefImg1[1] * longCorrection1.off * latCorrection1.scale * hCorrection1.scale - 
-                dCoefImg1[2] * longCorrection1.scale * latCorrection1.off * hCorrection1.scale -
-                dCoefImg1[3] * longCorrection1.scale * latCorrection1.scale * hCorrection1.off;
+    double d0_Img1 =                * longCorrection1.scale * latCorrection1.scale * hCorrection1.scale - 
+                                dCoefImg1[1] * longCorrection1.off * latCorrection1.scale * hCorrection1.scale - 
+                                dCoefImg1[2] * longCorrection1.scale * latCorrection1.off * hCorrection1.scale -
+                                dCoefImg1[3] * longCorrection1.scale * latCorrection1.scale * hCorrection1.off;
     
-    d1_Img1 =   dCoefImg1[1] * latCorrection1.scale * hCorrection1.scale;
+    double d1_Img1 =   dCoefImg1[1] * latCorrection1.scale * hCorrection1.scale;
 
-    d2_Img1 =   dCoefImg1[2] * longCorrection1.scale * hCorrection1.scale;
+    double d2_Img1 =   dCoefImg1[2] * longCorrection1.scale * hCorrection1.scale;
 
-    d3_Img1 =   dCoefImg1[3] * longCorrection1.scale * latCorrection1.scale;
+    double d3_Img1 =   dCoefImg1[3] * longCorrection1.scale * latCorrection1.scale;
 
+
+///SECOND IMAGE///    
+
+    double a0_Img2 =   aCoefImg2(0,0) * longCorrection1.scale * latCorrection1.scale * hCorrection1.scale - 
+                                aCoefImg2[1] * longCorrection1.off * latCorrection1.scale * hCorrection1.scale - 
+                                aCoefImg2[2] * longCorrection1.scale * latCorrection1.off * hCorrection1.scale -
+                                aCoefImg2[3] * longCorrection1.scale * latCorrection1.scale * hCorrection1.off;
     
+    double a1_Img2 =   aCoefImg2[1] * latCorrection1.scale * hCorrection1.scale;
+
+    double a2_Img2 =   aCoefImg2[2] * longCorrection1.scale * hCorrection1.scale;
+
+    double a3_Img2 =   aCoefImg2[3] * longCorrection1.scale * latCorrection1.scale;
+
+
+    double b0_Img2 =                * longCorrection1.scale * latCorrection1.scale * hCorrection1.scale - 
+                                bCoefImg2[1] * longCorrection1.off * latCorrection1.scale * hCorrection1.scale - 
+                                bCoefImg2[2] * longCorrection1.scale * latCorrection1.off * hCorrection1.scale -
+                                bCoefImg2[3] * longCorrection1.scale * latCorrection1.scale * hCorrection1.off;
+    
+    double b1_Img2 =   bCoefImg2[1] * latCorrection1.scale * hCorrection1.scale;
+
+    double b2_Img2 =   bCoefImg2[2] * longCorrection1.scale * hCorrection1.scale;
+
+    double b3_Img2 =   bCoefImg2[3] * longCorrection1.scale * latCorrection1.scale;
+
+
+
+    double c0_Img2 =   cCoefImg2[0] * longCorrection1.scale * latCorrection1.scale * hCorrection1.scale - 
+                                cCoefImg2[1] * longCorrection1.off * latCorrection1.scale * hCorrection1.scale - 
+                                cCoefImg2[2] * longCorrection1.scale * latCorrection1.off * hCorrection1.scale -
+                                cCoefImg2[3] * longCorrection1.scale * latCorrection1.scale * hCorrection1.off;
+    
+    double c1_Img2 =   cCoefImg2[1] * latCorrection1.scale * hCorrection1.scale;
+
+    double c2_Img2 =   cCoefImg2[2] * longCorrection1.scale * hCorrection1.scale;
+
+    double c3_Img2 =   cCoefImg2[3] * longCorrection1.scale * latCorrection1.scale;
+
+
+    double d0_Img2 =                * longCorrection1.scale * latCorrection1.scale * hCorrection1.scale - 
+                                dCoefImg2[1] * longCorrection1.off * latCorrection1.scale * hCorrection1.scale - 
+                                dCoefImg2[2] * longCorrection1.scale * latCorrection1.off * hCorrection1.scale -
+                                dCoefImg2[3] * longCorrection1.scale * latCorrection1.scale * hCorrection1.off;
+    
+    double d1_Img2 =   dCoefImg2[1] * latCorrection1.scale * hCorrection1.scale;
+
+    double d2_Img2 =   dCoefImg2[2] * longCorrection1.scale * hCorrection1.scale;
+
+    double d3_Img2 =   dCoefImg2[3] * longCorrection1.scale * latCorrection1.scale;
+
+
+
+
+
+
     /*
 	A = [   a1linha1 - l1(i)*b1linha1,      a2linha1 - l1(i)*b2linha1,      a3linha1 - l1(i)*b3linha1;         
             c1linha1 - s1(i)*d1linha1,      c2linha1 - s1(i)*d2linha1,      c3linha1 - s1(i)*d3linha1;         
@@ -122,12 +182,24 @@ Coordinates SpacialInterssection(Eigen::MatrixXd aCoefImg1, Eigen::MatrixXd bCoe
 	[X,V] = mmq(A,L);
 	Xa = [Xa; X];  
     */
-    Eigen::MatrixXd<double,4,3> A;
-    Eigen::MatrixXd<double,4,1> L;
     
+    Eigen::Matrix<double,4,3> A;
+    Eigen::Matrix<double,4,1> L;
+    
+
     for (int i = 0; i < Line1.rows(); i++)
     {
-           
+         A << a1_Img1-l1[i]*b1_Img1, a2_Img1-l1[i]*b2_Img1, a3_Img1-l1[i]*b3_Img1,
+              c1_Img1-s1[i]*d1_Img1, c2_Img1-s1[i]*d2_Img1, c3_Img1-s1[i]*d3_Img1,
+              a1_Img2-l2[i]*b1_Img2, a2_Img2-l2[i]*b2_Img2, a3_Img2-l2[i]*b3_Img2,
+              c1_Img2-s2[i]*d1_Img2, c2_Img2-s2[i]*d2_Img2, c3_Img2-s2[i]*d3_Img2;
+
+        L << l1[i]*b0_Img1 - a0_Img1, 
+             s1[0]*d0_Img1 - c0_Img1,
+             l2[i]*b0_Img2 - a0_Img2, 
+             s2[0]*d0_Img2 - c0_Img2;
+
+        
     }
     
 }
