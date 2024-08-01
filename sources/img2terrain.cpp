@@ -184,7 +184,7 @@ The purpose is to aproximate initial values through Least Squares, to later ajus
              l2[i]*b0_Img2 - a0_Img2, 
              s2[0]*d0_Img2 - c0_Img2;
 
-        
+        Xa = mmq(A,L).Xa;
     }
     
 }
