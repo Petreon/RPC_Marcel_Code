@@ -19,9 +19,8 @@ it returns three matrixes, each for a coordinate, and in the position of the pix
  - longitude
  - altitude
 
-
-function [latitude, longitude, altitude] = img2terrain(Line1, Sample1, Line2, Sample2, a1, b1, c1, d1, a2, b2 ,c2 ,d2, Line_off1, Sample_off1, Lat_off1, Long_off1, H_off1, Line_scale1, Sample_scale1, Lat_scale1, Long_scale1, H_scale1, Line_off2, Sample_off2, Lat_off2, Long_off2, H_off2, Line_scale2, Sample_scale2, Lat_scale2, Long_scale2, H_scale2) 
-
+does this octave operation:
+	function [latitude, longitude, altitude] = img2terrain(Line1, Sample1, Line2, Sample2, a1, b1, c1, d1, a2, b2 ,c2 ,d2, Line_off1, Sample_off1, Lat_off1, Long_off1, H_off1, Line_scale1, Sample_scale1, Lat_scale1, Long_scale1, H_scale1, Line_off2, Sample_off2, Lat_off2, Long_off2, H_off2, Line_scale2, Sample_scale2, Lat_scale2, Long_scale2, H_scale2) 
 */
 
 Coordinates SpacialInterssection(Eigen::MatrixXd aCoefImg1, Eigen::MatrixXd bCoefImg1, Eigen::MatrixXd cCoefImg1, Eigen::MatrixXd dCoefImg1, Eigen::MatrixXd aCoefImg2, 
@@ -37,22 +36,14 @@ Coordinates SpacialInterssection(Eigen::MatrixXd aCoefImg1, Eigen::MatrixXd bCoe
     Eigen::MatrixXd s2 = Normalization(Line1, s2Correction);
     
 
-
-///FIRST IMAGE///
-
-    /*
-        This section uses the first 4 coeficients of the Polinomial Rational Function 
-        to aproximate initial values for the line and collumn of the pixel in both images.
-    */
-
-    /*
-    LINE (l) POLINOMIAL
-        a and b correspond to the coeficients of 
-        the numerator and denominator respectively
-
-    At the end, line should be
+/*
+This section uses the first 4 coeficients of the Polinomial Rational Function 
+to aproximate initial values for the line and collumn of the pixel in both images.
+- l indicates the LINE Polinomial and s the COLLUMN Polinomial.
+-   At the end, line and collumn should be:
         l = (a0_Img1 + a1_Img1 + a2_Img1 + a3_Img1) / (b0_Img1 + b1_Img1 + b2_Img1 + b3_Img1)
-    */
+	s = (c0_Img2 + c1_Img2 + c2_Img2 + c3_Img2) / (d0_Img2 + d1_Img2 + d2_Img2 + d3_Img2)
+*/
 
     double a0_Img1 =   aCoefImg1(0,0) * longCorrection1.scale * latCorrection1.scale * hCorrection1.scale - 
                                 aCoefImg1[1] * longCorrection1.off * latCorrection1.scale * hCorrection1.scale - 
@@ -77,17 +68,7 @@ Coordinates SpacialInterssection(Eigen::MatrixXd aCoefImg1, Eigen::MatrixXd bCoe
 
     double b3_Img1 =   bCoefImg1[3] * longCorrection1.scale * latCorrection1.scale;
 
-
-
-    /*
-    COLLUMN (s) POLINOMIAL
-        c and d correspond to the coeficients of 
-        the numerator and d=enominator respectively
-
-    At the end, collumn should be
-        s = (c0_Img2 + c1_Img2 + c2_Img2 + c3_Img2) / (d0_Img2 + d1_Img2 + d2_Img2 + d3_Img2)
-    */
-
+	
     double c0_Img1 =   cCoefImg1[0] * longCorrection1.scale * latCorrection1.scale * hCorrection1.scale - 
                                 cCoefImg1[1] * longCorrection1.off * latCorrection1.scale * hCorrection1.scale - 
                                 cCoefImg1[2] * longCorrection1.scale * latCorrection1.off * hCorrection1.scale -
@@ -112,7 +93,7 @@ Coordinates SpacialInterssection(Eigen::MatrixXd aCoefImg1, Eigen::MatrixXd bCoe
     double d3_Img1 =   dCoefImg1[3] * longCorrection1.scale * latCorrection1.scale;
 
 
-///SECOND IMAGE///    
+// Since this operation requires 2 images, now we repeat the same operations above for the second image.  
 
     double a0_Img2 =   aCoefImg2(0,0) * longCorrection1.scale * latCorrection1.scale * hCorrection1.scale - 
                                 aCoefImg2[1] * longCorrection1.off * latCorrection1.scale * hCorrection1.scale - 
@@ -182,7 +163,11 @@ Coordinates SpacialInterssection(Eigen::MatrixXd aCoefImg1, Eigen::MatrixXd bCoe
 	[X,V] = mmq(A,L);
 	Xa = [Xa; X];  
     */
-    
+
+/*
+This section does the matrix multiplications as in a iterative method
+The purpose is to aproximate initial values through Least Squares, to later ajustment
+*/
     Eigen::Matrix<double,4,3> A;
     Eigen::Matrix<double,4,1> L;
     
