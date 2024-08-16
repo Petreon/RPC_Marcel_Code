@@ -143,35 +143,13 @@ to aproximate initial values for the line and collumn of the pixel in both image
 
     double d3_Img2 =   dCoefImg2[3] * longCorrection1.scale * latCorrection1.scale;
 
-
-
-
-
-
-    /*
-	A = [   a1linha1 - l1(i)*b1linha1,      a2linha1 - l1(i)*b2linha1,      a3linha1 - l1(i)*b3linha1;         
-            c1linha1 - s1(i)*d1linha1,      c2linha1 - s1(i)*d2linha1,      c3linha1 - s1(i)*d3linha1;         
-            a1linha2 - l2(i)*b1linha2,      a2linha2 - l2(i)*b2linha2,      a3linha2 - l2(i)*b3linha2;         
-            c1linha2 - s2(i)*d1linha2,      c2linha1 - s2(i)*d2linha2,      c3linha1 - s2(i)*d3linha2];  
-
-
-	L = [   l1(i)*b0linha1 - a0linha1; 
-            s1(i)*d0linha1 - c0linha1; 
-            l2(i)*b0linha2 - a0linha2; 
-            s2(i)*d0linha2 - c0linha2];
-
-	[X,V] = mmq(A,L);
-	Xa = [Xa; X];  
-    */
-
 /*
 This section does the matrix multiplications as in a iterative method
 The purpose is to aproximate initial values through Least Squares, to later ajustment
 */
     Eigen::Matrix<double,4,3> A;
     Eigen::Matrix<double,4,1> L;
-    
-
+    Eigen::MatrixXd Xa;
     for (int i = 0; i < Line1.rows(); i++)
     {
          A << a1_Img1-l1[i]*b1_Img1, a2_Img1-l1[i]*b2_Img1, a3_Img1-l1[i]*b3_Img1,
@@ -187,4 +165,25 @@ The purpose is to aproximate initial values through Least Squares, to later ajus
         Xa = mmq(A,L).Xa;
     }
     
+    /*
+    This section selects indexes of the elements in the Xa matrix 
+    that correspond to LONG, LAT and H
+    After that, it alocates those in a correspondent matrix
+    */
+
+    Eigen::Matrix<double,Xa.rows(),1> PontosLong;
+    Eigen::Matrix<double,Xa.rows(),1> PontosLat;
+    Eigen::Matrix<double,Xa.rows(),1> Pontosh;
+    
+    for (int i = 0; i < Line1.rows(); i++){
+        PontosLong(i,1) = 3*i-2;
+        PontosLat(i,1) = 3*i-1;
+        Pontosh(i,1) = 3*i;
+    }
+
+    /*in octave:
+    Long = Xa(Pontoslong);
+    Lat = Xa(Pontoslat);
+    h = Xa(Pontosh);
+    */
 }
