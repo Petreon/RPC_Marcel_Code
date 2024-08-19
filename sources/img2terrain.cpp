@@ -171,9 +171,9 @@ The purpose is to aproximate initial values through Least Squares, to later ajus
     After that, it alocates those in a correspondent matrix
     */
 
-    Eigen::MatrixXd PontosLong;
-    Eigen::MatrixXd PontosLat;
-    Eigen::MatrixXd Pontosh;
+    Eigen::MatrixXd PontosLong(Line1.rows(),1);
+    Eigen::MatrixXd PontosLat(Line1.rows(),1);
+    Eigen::MatrixXd Pontosh(Line1.rows(),1);
     
     for (int i = 0; i < Line1.rows(); i++){
         PontosLong(i,1) = 3*i-2;
@@ -181,9 +181,9 @@ The purpose is to aproximate initial values through Least Squares, to later ajus
         Pontosh(i,1) = 3*i;
     }
 
-    /*in octave:
-    Long = Xa(Pontoslong);
-    Lat = Xa(Pontoslat);
-    h = Xa(Pontosh);
-    */
+   MatrixXd Long = Xa(PontosLong,Eigen::placeholders::all);
+   MatrixXd Lat = Xa(PontosLong,Eigen::placeholders::all);
+   MatrixXd h = Xa(PontosLong,Eigen::placeholders::all);
+
+
 }
