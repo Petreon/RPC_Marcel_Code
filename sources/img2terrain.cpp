@@ -57,11 +57,11 @@ to aproximate initial values for the line and collumn of the pixel in both image
     double a3_Img1 =   aCoefImg1[3] * longCorrection1.scale * latCorrection1.scale;
 
 
-    double b0_Img1 =                * longCorrection1.scale * latCorrection1.scale * hCorrection1.scale - 
-                                bCoefImg1[1] * longCorrection1.off * latCorrection1.scale * hCorrection1.scale - 
-                                bCoefImg1[2] * longCorrection1.scale * latCorrection1.off * hCorrection1.scale -
-                                bCoefImg1[3] * longCorrection1.scale * latCorrection1.scale * hCorrection1.off;
-    
+    double b0_Img1 =    longCorrection1.scale * latCorrection1.scale * hCorrection1.scale - 
+                        bCoefImg1[1] * longCorrection1.off * latCorrection1.scale * hCorrection1.scale - 
+                        bCoefImg1[2] * longCorrection1.scale * latCorrection1.off * hCorrection1.scale -
+                        bCoefImg1[3] * longCorrection1.scale * latCorrection1.scale * hCorrection1.off;
+
     double b1_Img1 =   bCoefImg1[1] * latCorrection1.scale * hCorrection1.scale;
 
     double b2_Img1 =   bCoefImg1[2] * longCorrection1.scale * hCorrection1.scale;
@@ -81,10 +81,10 @@ to aproximate initial values for the line and collumn of the pixel in both image
     double c3_Img1 =   cCoefImg1[3] * longCorrection1.scale * latCorrection1.scale;
 
 
-    double d0_Img1 =                * longCorrection1.scale * latCorrection1.scale * hCorrection1.scale - 
-                                dCoefImg1[1] * longCorrection1.off * latCorrection1.scale * hCorrection1.scale - 
-                                dCoefImg1[2] * longCorrection1.scale * latCorrection1.off * hCorrection1.scale -
-                                dCoefImg1[3] * longCorrection1.scale * latCorrection1.scale * hCorrection1.off;
+    double d0_Img1 =    longCorrection1.scale * latCorrection1.scale * hCorrection1.scale - 
+                        dCoefImg1[1] * longCorrection1.off * latCorrection1.scale * hCorrection1.scale - 
+                        dCoefImg1[2] * longCorrection1.scale * latCorrection1.off * hCorrection1.scale -
+                        dCoefImg1[3] * longCorrection1.scale * latCorrection1.scale * hCorrection1.off;
     
     double d1_Img1 =   dCoefImg1[1] * latCorrection1.scale * hCorrection1.scale;
 
@@ -95,53 +95,53 @@ to aproximate initial values for the line and collumn of the pixel in both image
 
 // Since this operation requires 2 images, now we repeat the same operations above for the second image.  
 
-    double a0_Img2 =   aCoefImg2(0,0) * longCorrection1.scale * latCorrection1.scale * hCorrection1.scale - 
-                                aCoefImg2[1] * longCorrection1.off * latCorrection1.scale * hCorrection1.scale - 
-                                aCoefImg2[2] * longCorrection1.scale * latCorrection1.off * hCorrection1.scale -
-                                aCoefImg2[3] * longCorrection1.scale * latCorrection1.scale * hCorrection1.off;
+    double a0_Img2 =   aCoefImg2(0,0) * longCorrection2.scale * latCorrection2.scale * hCorrection2.scale - 
+                                aCoefImg2[1] * longCorrection2.off * latCorrection2.scale * hCorrection2.scale - 
+                                aCoefImg2[2] * longCorrection2.scale * latCorrection2.off * hCorrection2.scale -
+                                aCoefImg2[3] * longCorrection2.scale * latCorrection2.scale * hCorrection2.off;
     
-    double a1_Img2 =   aCoefImg2[1] * latCorrection1.scale * hCorrection1.scale;
+    double a1_Img2 =   aCoefImg2[1] * latCorrection2.scale * hCorrection2.scale;
 
-    double a2_Img2 =   aCoefImg2[2] * longCorrection1.scale * hCorrection1.scale;
+    double a2_Img2 =   aCoefImg2[2] * longCorrection2.scale * hCorrection2.scale;
 
-    double a3_Img2 =   aCoefImg2[3] * longCorrection1.scale * latCorrection1.scale;
+    double a3_Img2 =   aCoefImg2[3] * longCorrection2.scale * latCorrection2.scale;
 
 
-    double b0_Img2 =                * longCorrection1.scale * latCorrection1.scale * hCorrection1.scale - 
-                                bCoefImg2[1] * longCorrection1.off * latCorrection1.scale * hCorrection1.scale - 
-                                bCoefImg2[2] * longCorrection1.scale * latCorrection1.off * hCorrection1.scale -
-                                bCoefImg2[3] * longCorrection1.scale * latCorrection1.scale * hCorrection1.off;
+    double b0_Img2 =            longCorrection2.scale * latCorrection2.scale * hCorrection2.scale - 
+                                bCoefImg2[1] * longCorrection2.off * latCorrection2.scale * hCorrection2.scale - 
+                                bCoefImg2[2] * longCorrection2.scale * latCorrection2.off * hCorrection2.scale -
+                                bCoefImg2[3] * longCorrection2.scale * latCorrection2.scale * hCorrection2.off;
     
-    double b1_Img2 =   bCoefImg2[1] * latCorrection1.scale * hCorrection1.scale;
+    double b1_Img2 =   bCoefImg2[1] * latCorrection2.scale * hCorrection2.scale;
 
-    double b2_Img2 =   bCoefImg2[2] * longCorrection1.scale * hCorrection1.scale;
+    double b2_Img2 =   bCoefImg2[2] * longCorrection2.scale * hCorrection2.scale;
 
-    double b3_Img2 =   bCoefImg2[3] * longCorrection1.scale * latCorrection1.scale;
+    double b3_Img2 =   bCoefImg2[3] * longCorrection2.scale * latCorrection2.scale;
 
 
 
-    double c0_Img2 =   cCoefImg2[0] * longCorrection1.scale * latCorrection1.scale * hCorrection1.scale - 
-                                cCoefImg2[1] * longCorrection1.off * latCorrection1.scale * hCorrection1.scale - 
-                                cCoefImg2[2] * longCorrection1.scale * latCorrection1.off * hCorrection1.scale -
-                                cCoefImg2[3] * longCorrection1.scale * latCorrection1.scale * hCorrection1.off;
+    double c0_Img2 =   cCoefImg2[0] * longCorrection2.scale * latCorrection2.scale * hCorrection2.scale - 
+                                cCoefImg2[1] * longCorrection2.off * latCorrection2.scale * hCorrection2.scale - 
+                                cCoefImg2[2] * longCorrection2.scale * latCorrection2.off * hCorrection2.scale -
+                                cCoefImg2[3] * longCorrection2.scale * latCorrection2.scale * hCorrection2.off;
     
-    double c1_Img2 =   cCoefImg2[1] * latCorrection1.scale * hCorrection1.scale;
+    double c1_Img2 =   cCoefImg2[1] * latCorrection2.scale * hCorrection2.scale;
 
-    double c2_Img2 =   cCoefImg2[2] * longCorrection1.scale * hCorrection1.scale;
+    double c2_Img2 =   cCoefImg2[2] * longCorrection2.scale * hCorrection2.scale;
 
-    double c3_Img2 =   cCoefImg2[3] * longCorrection1.scale * latCorrection1.scale;
+    double c3_Img2 =   cCoefImg2[3] * longCorrection2.scale * latCorrection2.scale;
 
 
-    double d0_Img2 =                * longCorrection1.scale * latCorrection1.scale * hCorrection1.scale - 
-                                dCoefImg2[1] * longCorrection1.off * latCorrection1.scale * hCorrection1.scale - 
-                                dCoefImg2[2] * longCorrection1.scale * latCorrection1.off * hCorrection1.scale -
-                                dCoefImg2[3] * longCorrection1.scale * latCorrection1.scale * hCorrection1.off;
+    double d0_Img2 =    longCorrection2.scale * latCorrection2.scale * hCorrection2.scale - 
+                        dCoefImg2[1] * longCorrection2.off * latCorrection2.scale * hCorrection2.scale - 
+                        dCoefImg2[2] * longCorrection2.scale * latCorrection2.off * hCorrection2.scale -
+                        dCoefImg2[3] * longCorrection2.scale * latCorrection2.scale * hCorrection2.off;
     
-    double d1_Img2 =   dCoefImg2[1] * latCorrection1.scale * hCorrection1.scale;
+    double d1_Img2 =   dCoefImg2[1] * latCorrection2.scale * hCorrection2.scale;
 
-    double d2_Img2 =   dCoefImg2[2] * longCorrection1.scale * hCorrection1.scale;
+    double d2_Img2 =   dCoefImg2[2] * longCorrection2.scale * hCorrection2.scale;
 
-    double d3_Img2 =   dCoefImg2[3] * longCorrection1.scale * latCorrection1.scale;
+    double d3_Img2 =   dCoefImg2[3] * longCorrection2.scale * latCorrection2.scale;
 
 /*
 This section does the matrix multiplications as in a iterative method
@@ -171,9 +171,9 @@ The purpose is to aproximate initial values through Least Squares, to later ajus
     After that, it alocates those in a correspondent matrix
     */
 
-    Eigen::Matrix<double,Xa.rows(),1> PontosLong;
-    Eigen::Matrix<double,Xa.rows(),1> PontosLat;
-    Eigen::Matrix<double,Xa.rows(),1> Pontosh;
+    Eigen::MatrixXd PontosLong;
+    Eigen::MatrixXd PontosLat;
+    Eigen::MatrixXd Pontosh;
     
     for (int i = 0; i < Line1.rows(); i++){
         PontosLong(i,1) = 3*i-2;

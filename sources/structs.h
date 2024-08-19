@@ -33,3 +33,11 @@ typedef struct CoordinatesUTM
     Eigen::MatrixXd North;
     Eigen::MatrixXd Fuse;
 } CoordinatesUTM;
+
+typedef struct Coeficients
+{
+    Eigen::Matrix<double,20,1> a;
+    Eigen::Matrix<double,20,1> b;
+    Eigen::Matrix<double,20,1> c;
+    Eigen::Matrix<double,20,1> d;
+} Coefs;
