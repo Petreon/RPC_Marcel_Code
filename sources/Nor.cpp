@@ -5,13 +5,6 @@
 #include "structs.h"
 
 /*
-struct to acesses the offset and scale
-values for a property to be normalized
-*/
-
-// functions
-
-/*
 function to take the a general value related to each
 point (lat, long, height, line, collumn, for example) and normalize them
 */
