@@ -1,5 +1,6 @@
 // Include libraries and functions
 #include <cmath>
+#include <iomanip>
 #include "../includes/Eigen/Dense"
 #include "structs.h"
 
@@ -57,28 +58,67 @@ Eigen::MatrixXd CalculateB(Eigen::MatrixXd LatitutePoints, double a_value, doubl
 
     Eigen::MatrixXd Lat_points_2sen = 2 * LatitutePoints;
     // std::cout << Lat_points_2sen << std::endl;
-    Lat_points_2sen = LatitutePoints.array().sin();
+    Lat_points_2sen = Lat_points_2sen.array().sin();
     // std::cout << Lat_points_2sen << std::endl;
     Eigen::MatrixXd Lat_points_4sen = 4 * LatitutePoints;
-    Lat_points_2sen = LatitutePoints.array().sin();
+    Lat_points_4sen = Lat_points_4sen.array().sin();
 
     Eigen::MatrixXd Lat_points_6sen = 6 * LatitutePoints;
-    Lat_points_2sen = LatitutePoints.array().sin();
+    Lat_points_6sen = Lat_points_6sen.array().sin();
 
     Eigen::MatrixXd Lat_points_8sen = 8 * LatitutePoints;
-    Lat_points_2sen = LatitutePoints.array().sin();
+    Lat_points_8sen = Lat_points_8sen.array().sin();
 
-    // ATTENTION, CALCULOS DOENST FIT HERE, the result in octave was
-    //-2.535e+06
-    //-2.5429e+06
-    //-2.5349e+06
-    //-2.5361e+06
-    // and he is almost sum 0.07 above like -2.54028e+06
     B = a_value * (A0 * LatitutePoints - A2 * Lat_points_2sen + A4 * Lat_points_4sen - A6 * Lat_points_6sen + A8 * Lat_points_8sen);
 
-    // std::cout << "_____________" << std::endl;
-    // std::cout << B << std::endl;
+    std::cout << "_____________" << std::endl;
+    std::cout << B << std::endl;
     return B;
+}
+
+Eigen::MatrixXd CalculateCentralMeridian(Eigen::MatrixXd F, const double PI)
+{
+    // Central Meridian Calculus
+    //  long0 = 6 * ( pi / 180) / 2 * ( 2 * ( F - ( pi / ( 6 * (pi / 180) ) ) ) - 1);
+    Eigen::MatrixXd Long_0 = (double)6 * (PI / (double)180) / (double)2 * ((double)2 * (F.array() - (PI / ((double)6 * (PI / (double)180)))) - (double)1);
+    // std::cout << Long_0 << std::endl;
+    return Long_0;
+}
+
+Eigen::MatrixXd CalculateElp2(Eigen::MatrixXd v, Eigen::MatrixXd d_long, Eigen::MatrixXd cos_lat, Eigen::MatrixXd tan_lat, Eigen::MatrixXd n)
+{
+    /* Doing this operation (octave), this is a full element-wise operation so v[1] communicates with d_long[1] and so on.
+    Elp2 = v.*dlong.^3 .* (cos(lat).^3).*(1 - t.^2 + n.^2)/6;
+    x.array() * y.array() are element-wise operations
+    */
+    Eigen::MatrixXd Elp2 = v.array() * d_long.array().pow(3) * (cos_lat.array().pow(3)) * ((double)1 - tan_lat.array().pow(2) + n.array().pow(2)) / (double)6;
+    // std::cout << "Elp2 result :" << std::endl;
+    // std::cout << Elp2 << std::endl;
+    return Elp2;
+}
+
+Eigen::MatrixXd CalculateElp3(Eigen::MatrixXd v, Eigen::MatrixXd d_long, Eigen::MatrixXd cos_lat, Eigen::MatrixXd tan_lat, Eigen::MatrixXd n)
+{
+    /* Doing this operation (octave), this is a full element-wise operation so v[1] communicates with d_long[1] and so on.
+    Elp2 = v .* dlong.^5 .* (cos(lat).^5).*(5 - 18*t.^2 + t.^4 + 14*n.^2 - 58*n.^2 .*t.^2 + 13*n.^4 + 4*n.^6 - 64*n.^4.*t.^2 - 24*n.^6.*t.^2)/120;
+    x.array() * y.array() are element-wise operations
+    */
+    Eigen::MatrixXd Elp3 = v.array() * d_long.array().pow(5) * (cos_lat.array().pow(5)) * ((double)5 - (double)18 * tan_lat.array().pow(2) + tan_lat.array().pow(4) + (double)14 * n.array().pow(2) - (double)58 * n.array().pow(2) * tan_lat.array().pow(2) + (double)13 * n.array().pow(4) + (double)4 * n.array().pow(6) - (double)64 * n.array().pow(4) * tan_lat.array().pow(2) - (double)24 * n.array().pow(6) * tan_lat.array().pow(2)) / (double)120;
+    // std::cout << "Elp3 result :" << std::endl;
+    // std::cout << Elp3 << std::endl;
+    return Elp3;
+}
+
+Eigen::MatrixXd CalculateElp4(Eigen::MatrixXd v, Eigen::MatrixXd d_long, Eigen::MatrixXd cos_lat, Eigen::MatrixXd tan_lat, Eigen::MatrixXd n)
+{
+    /* Doing this operation (octave) (octave), this is a full element-wise operation so v[1] communicates with d_long[1] and so on.
+    Elp2 = v.*dlong.^7 .*(cos(lat).^7).*(61 - 479*t.^2 + 179*t.^4 - t.^6)/5040;
+    x.array() * y.array() are element-wise operations
+    */
+    Eigen::MatrixXd Elp4 = v.array() * d_long.array().pow(7) * (cos_lat.array().pow(7)) * ((double)61 - (double)479 * tan_lat.array().pow(2) + (double)179 * tan_lat.array().pow(4) - tan_lat.array().pow(6)) / (double)5040;
+    // std::cout << "Elp4 result :" << std::endl;
+    // std::cout << Elp4 << std::endl;
+    return Elp4;
 }
 
 // functions
@@ -138,18 +178,19 @@ CoordinatesUTM LatLong2UTM(Eigen::MatrixXd LatitutePoints, Eigen::MatrixXd Longi
     sin_latitute = sin_latitute.array() * sin_latitute.array();
     sin_latitute = e1_square * sin_latitute;
     sin_latitute = 1 - sin_latitute.array();
-    sin_latitute = sin_latitute.array().sqrt(); // sin_latitude = v in the octave code
+    sin_latitute = sin_latitute.array().sqrt();
 
     // doing ones()...
     Eigen::MatrixXd ones_Matrix = Eigen::MatrixXd::Ones(LatitutePoints.rows(), 1);
     ones_Matrix = a * ones_Matrix;
 
+    // what is this V matrix?
     Eigen::MatrixXd v = ones_Matrix.array() / sin_latitute.array();
 
     std::cout << std::endl;
     std::cout << v << std::endl;
 
-    // Sarie Coeficients
+    // Serie Coeficients, fourier?
 
     double A0 = CalculateA0(e1_square2, e1_square4, e1_square6, e1_square8); // OK Checked
     double A2 = CalculateA2(e1_square2, e1_square4, e1_square6, e1_square8); // OK Checked
@@ -158,17 +199,38 @@ CoordinatesUTM LatLong2UTM(Eigen::MatrixXd LatitutePoints, Eigen::MatrixXd Longi
     double A8 = CalculateA8(e1_square8);                                     // OK checked
 
     // Calculate B
-    Eigen::MatrixXd B = CalculateB(LatitutePoints, a, A0, A2, A4, A6, A8);
+    Eigen::MatrixXd B = CalculateB(LatitutePoints, a, A0, A2, A4, A6, A8); // OK checked
 
     // Calculating F (Fuse), why it round the numbers?
     // doing these operations
     // F = pi/(6*(pi/180)) + fix(long/(6*(pi/180)));
-    Eigen::MatrixXd Longitute_points_round = LongitutePoints / (6 * (PI / (double)180));
+    Eigen::MatrixXd Longitute_points_round = LongitutePoints / ((double)6 * (PI / (double)180));
     Longitute_points_round = Longitute_points_round.array().round();
 
     // element-wise operation
-    Eigen::MatrixXd F = PI / (6 * (PI / 180)) + Longitute_points_round.array();
+    Eigen::MatrixXd F = PI / ((double)6 * (PI / 180)) + Longitute_points_round.array(); // checked OK
     // std::cout << F << std::endl; //checked OK
+
+    // Central Meridian Calculus
+    //  long0 = 6 * ( pi / 180) / 2 * ( 2 * ( F - ( pi / ( 6 * (pi / 180) ) ) ) - 1);
+    Eigen::MatrixXd Long_0 = CalculateCentralMeridian(F, PI); // OK Checked
+
+    // longitute diference
+    Eigen::MatrixXd D_Long = LongitutePoints - Long_0; // OK checked
+    // std::cout << D_Long << std::endl;
+
+    // Elp's Calculos and Nlp's, E' and N'
+    // element-wise operations not matrices
+    Eigen::MatrixXd Elp1 = v.array() * D_Long.array() * cos_latitute.array();       // OK checked
+    Eigen::MatrixXd Elp2 = CalculateElp2(v, D_Long, cos_latitute, tan_latitude, n); // OK checked
+    Eigen::MatrixXd Elp3 = CalculateElp3(v, D_Long, cos_latitute, tan_latitude, n); // OK checked
+    Eigen::MatrixXd Elp4 = CalculateElp4(v, D_Long, cos_latitute, tan_latitude, n); // OK checked
+    Eigen::MatrixXd El = Elp1 + Elp2 + Elp3 + Elp4;                                 // OK checked
+    // std::cout << "El Result: " << std::endl;
+    //  std::cout << std::fixed << std::setprecision(8); // only to show the whole value
+    // std::cout << El.row(1) << std::endl; OK CHECKED
+
+    Eigen::MatrixXd Nlp1 = B;
 
     /*
     std::cout << "_______________" << std::endl;
