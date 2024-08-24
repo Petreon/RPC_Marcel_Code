@@ -3,6 +3,7 @@
 #include <iostream>
 #include "structs.h"
 #include "Nor.cpp"
+#include "Polrfm.cpp"
 /* 
 This function does the spacial intersection operation, mapping image pixels to ground coordinates,
 that is, [latitude,longitude,height]
@@ -181,9 +182,68 @@ The purpose is to aproximate initial values through Least Squares, to later ajus
         Pontosh(i,1) = 3*i;
     }
 
-   MatrixXd Long = Xa(PontosLong,Eigen::placeholders::all);
-   MatrixXd Lat = Xa(PontosLong,Eigen::placeholders::all);
-   MatrixXd h = Xa(PontosLong,Eigen::placeholders::all);
+    Eigen::MatrixXd Long = Xa(PontosLong,Eigen::placeholders::all);
+    Eigen::MatrixXd Lat = Xa(PontosLat,Eigen::placeholders::all);
+    Eigen::MatrixXd h = Xa(Pontosh,Eigen::placeholders::all);
 
+    //iterative method
+    
+    /*
+    This section uses B,L,H to represent Geodetic Latitude and Longitude and Geometric Height for both images, respectively
+    However, in order to make the code more readable, the abreviations of the coordinates were added.
+    */
 
-}
+    for(int i = 0; i<Long.rows();i++){
+        for(int j = 0; j<3; j++){
+            //Preivous Coordinates Normalization for both images
+
+            double B_LatitudeNormalized_Img1 = ElementNormalization(Lat(i,j),latCorrection1.off,latCorrection1.scale);
+            double L_LongitudeNormalized_Img1 = ElementNormalization(Long(i,j),longCorrection1.off,longCorrection1.scale);
+            double H_HeightNormalized_Img1 = ElementNormalization(h(i,j),hCorrection1.off,hCorrection1.scale);
+
+            double B_LatitudeNormalized_Img2 = ElementNormalization(Lat(i,j),latCorrection2.off,latCorrection2.scale);
+            double L_LongitudeNormalized_Img2 = ElementNormalization(Long(i,j),longCorrection2.off,longCorrection2.scale);
+            double H_HeightNormalized_Img2 = ElementNormalization(h(i,j),hCorrection2.off,hCorrection2.scale);
+            
+            /*
+            Image's Line (l) and Collumn (s) correspondent to 
+            this iteration's Ground Coordinates normalized above
+            */
+
+            double l_LineImg1 = Polrfm(aCoefImg1, L_LongitudeNormalized_Img1,B_LatitudeNormalized_Img1,H_HeightNormalized_Img1) / Polrfm(bCoefImg1, L_LongitudeNormalized_Img1,B_LatitudeNormalized_Img1,H_HeightNormalized_Img1);
+            double s_CollumnImg1 = Polrfm(cCoefImg1, L_LongitudeNormalized_Img1,B_LatitudeNormalized_Img1,H_HeightNormalized_Img1) / Polrfm(dCoefImg1, L_LongitudeNormalized_Img1,B_LatitudeNormalized_Img1,H_HeightNormalized_Img1);
+
+            double l_LineImg2 = Polrfm(aCoefImg2, L_LongitudeNormalized_Img2,B_LatitudeNormalized_Img2,H_HeightNormalized_Img2) / Polrfm(bCoefImg2, L_LongitudeNormalized_Img2,B_LatitudeNormalized_Img2,H_HeightNormalized_Img2);
+            double s_CollumnImg2 = Polrfm(cCoefImg2, L_LongitudeNormalized_Img2,B_LatitudeNormalized_Img2,H_HeightNormalized_Img2) / Polrfm(dCoefImg2, L_LongitudeNormalized_Img2,B_LatitudeNormalized_Img2,H_HeightNormalized_Img2);
+        
+            /*
+            The parameters ajustment is done through a Least Squares
+            just like the Initial Aproximation.
+            */
+
+            A << Deriv_L()/longCorrection1.scale, Deriv_B()/latCorrection1.scale, Deriv_H()/hCorrection1.scale
+                 Deriv_L()/longCorrection1.scale, Deriv_B()/latCorrection1.scale, Deriv_H()/hCorrection1.scale
+                 Deriv_L()/longCorrection2.scale, Deriv_B()/latCorrection2.scale, Deriv_H()/hCorrection2.scale
+                 Deriv_L()/longCorrection2.scale, Deriv_B()/latCorrection2.scale, Deriv_H()/hCorrection2.scale;
+
+            L << l1[0] - l_LineImg1,
+                 s1[0] - s_CollumnImg1,
+                 l2[0] - l_LineImg2,
+                 s2[0] - s_CollumnImg2;
+            
+            Eigen::Matrix<double,3,1> X = mmq(A,L).Xa
+
+            Long = Long(i,0) + X(0,0)
+            Lat = Lat(i,0) + X(1,0)
+            h = h(i,0) + X(2,0)
+        }
+    }
+
+    Coordinates SpacialInterssectionReturn;
+    SpacialInterssectionReturn.Long = Long;
+    SpacialInterssectionReturn.Lat = Lat;
+    SpacialInterssectionReturn.Height = h;
+
+    return SpacialInterssectionReturn;
+  
+}  
