@@ -1,7 +1,35 @@
-<h1>This is an RPC algorithm Based on a Monography from Marcel Emanuelli Rotunno</h1>
+# This is an RPC algorithm Based on a Monography from Marcel Emanuelli Rotunno
 
-<h2>Source</h2>
-<p>
+## Objective
+
+## Guidelines
+lorem ipsulum dolor amet sic 
+
+## Understanding Parameters' Names
+
+To minimize the declaration of various names and to make the code more organized, various Structures were created as listed in `sources/structs.h`.
+For example:
+
+```cpp
+typedef struct Coordinates
+{
+    Eigen::MatrixXd Lat;
+    Eigen::MatrixXd Long;
+    Eigen::MatrixXd Height;
+} Coordinates;
+```
+
+Variables' names are longer then usually seen so that the code can be semanthicaly understood, as in:
+
+```cpp
+    Coordinates SpacialInterssectionReturn;
+    SpacialInterssectionReturn.Long = Long;
+```
+
+Functions' names are also longer so that the users can easily find the functions that suit theirs needs sinmply by reading its names as in `Coordinates SpacialInterssection()`.
+
+## Source
+
 R842 Rotunno, Marcel Emanuelli.
 
 Interseção espacial pelo modelo de funções racionais para
@@ -21,4 +49,3 @@ Bibliografia p.47
 
 CDU 62:528.9
 
-</p>
