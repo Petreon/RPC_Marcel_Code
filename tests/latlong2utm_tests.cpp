@@ -38,6 +38,13 @@ int main()
     // std::cout << longitute << std::endl;
     // std::cout << "_______________" << std::endl;
 
-    CoordinatesUTM coordinatesConverted = LatLong2UTM(latitute, longitute);
+    CoordinatesUTM coordinatesConverted = LatLong2UTM(latitute, longitute); // OK CHECKED
+    std::cout << "latlong2utm result: " << std::endl;
+    std::cout << "East: " << std::endl;
+    std::cout << coordinatesConverted.East << std::endl;
+    std::cout << "North: " << std::endl;
+    std::cout << coordinatesConverted.North << std::endl;
+    std::cout << "Fuse: " << std::endl;
+    std::cout << coordinatesConverted.Fuse << std::endl;
     return 0;
 }

@@ -71,8 +71,8 @@ Eigen::MatrixXd CalculateB(Eigen::MatrixXd LatitutePoints, double a_value, doubl
 
     B = a_value * (A0 * LatitutePoints - A2 * Lat_points_2sen + A4 * Lat_points_4sen - A6 * Lat_points_6sen + A8 * Lat_points_8sen);
 
-    std::cout << "_____________" << std::endl;
-    std::cout << B << std::endl;
+    // std::cout << "_____________" << std::endl;
+    // std::cout << B << std::endl;
     return B;
 }
 
@@ -89,6 +89,7 @@ Eigen::MatrixXd CalculateElp2(Eigen::MatrixXd v, Eigen::MatrixXd d_long, Eigen::
 {
     /* Doing this operation (octave), this is a full element-wise operation so v[1] communicates with d_long[1] and so on.
     Elp2 = v.*dlong.^3 .* (cos(lat).^3).*(1 - t.^2 + n.^2)/6;
+
     x.array() * y.array() are element-wise operations
     */
     Eigen::MatrixXd Elp2 = v.array() * d_long.array().pow(3) * (cos_lat.array().pow(3)) * ((double)1 - tan_lat.array().pow(2) + n.array().pow(2)) / (double)6;
@@ -101,6 +102,7 @@ Eigen::MatrixXd CalculateElp3(Eigen::MatrixXd v, Eigen::MatrixXd d_long, Eigen::
 {
     /* Doing this operation (octave), this is a full element-wise operation so v[1] communicates with d_long[1] and so on.
     Elp2 = v .* dlong.^5 .* (cos(lat).^5).*(5 - 18*t.^2 + t.^4 + 14*n.^2 - 58*n.^2 .*t.^2 + 13*n.^4 + 4*n.^6 - 64*n.^4.*t.^2 - 24*n.^6.*t.^2)/120;
+
     x.array() * y.array() are element-wise operations
     */
     Eigen::MatrixXd Elp3 = v.array() * d_long.array().pow(5) * (cos_lat.array().pow(5)) * ((double)5 - (double)18 * tan_lat.array().pow(2) + tan_lat.array().pow(4) + (double)14 * n.array().pow(2) - (double)58 * n.array().pow(2) * tan_lat.array().pow(2) + (double)13 * n.array().pow(4) + (double)4 * n.array().pow(6) - (double)64 * n.array().pow(4) * tan_lat.array().pow(2) - (double)24 * n.array().pow(6) * tan_lat.array().pow(2)) / (double)120;
@@ -119,6 +121,62 @@ Eigen::MatrixXd CalculateElp4(Eigen::MatrixXd v, Eigen::MatrixXd d_long, Eigen::
     // std::cout << "Elp4 result :" << std::endl;
     // std::cout << Elp4 << std::endl;
     return Elp4;
+}
+
+Eigen::MatrixXd CalculateNlp2(Eigen::MatrixXd v, Eigen::MatrixXd d_long, Eigen::MatrixXd cos_lat, Eigen::MatrixXd sin_lat, Eigen::MatrixXd tan_lat, Eigen::MatrixXd n)
+{
+    /* Doing this operation (octave) , this is a full element-wise operation so v[1] communicates with d_long[1] and so on.
+    Nlp2 = v.*dlong.^2.*sin(lat).*cos(lat)/2;
+    x.array() * y.array() are element-wise operations
+    */
+
+    Eigen::MatrixXd Nlp2 = v.array() * d_long.array().pow(2) * sin_lat.array() * cos_lat.array() / 2;
+    // std::cout << "Nlp2 Test: " << std::endl;
+    // std::cout << Nlp2 << std::endl;
+    return Nlp2;
+}
+
+Eigen::MatrixXd CalculateNlp3(Eigen::MatrixXd v, Eigen::MatrixXd d_long, Eigen::MatrixXd cos_lat, Eigen::MatrixXd sin_lat, Eigen::MatrixXd tan_lat, Eigen::MatrixXd n)
+{
+    /* Doing this operation (octave) , this is a full element-wise operation so v[1] communicates with d_long[1] and so on.
+    Nlp3 = v.*dlong.^4.*sin(lat).*(cos(lat).^3).*(5-t.^2+9*n.^2+4*n.^4)/24;
+    x.array() * y.array() are element-wise operations
+    */
+
+    Eigen::MatrixXd Nlp3 = v.array() * d_long.array().pow(4) * sin_lat.array() * (cos_lat.array().pow(3)) * ((double)5 - tan_lat.array().pow(2) + (double)9 * n.array().pow(2) + (double)4 * n.array().pow(4)) / (double)24;
+    // std::cout << "Nlp3 Test: " << std::endl;
+    // std::cout << Nlp3 << std::endl;
+    return Nlp3;
+}
+
+Eigen::MatrixXd CalculateNlp4(Eigen::MatrixXd v, Eigen::MatrixXd d_long, Eigen::MatrixXd cos_lat, Eigen::MatrixXd sin_lat, Eigen::MatrixXd tan_lat, Eigen::MatrixXd n)
+{
+    /* Doing this operation (octave) , this is a full element-wise operation so v[1] communicates with d_long[1] and so on.
+    Nlp4 = v.*dlong.^6 .* sin(lat).*(cos(lat).^5).*(61 - 58*t.^2 + t.^4 + 270*n.^2 - 330*n.^2.*t.^2 + 445*n.^4 + 324*n.^6 - 680*n.^4.*t.^2 + 88*n.^8 - 600*n.^6.*t.^2 - 192*n.^8.*t.^2)/720;
+    x.array() * y.array() are element-wise operations
+    */
+
+    Eigen::MatrixXd Nlp4 = v.array() * d_long.array().pow(6) * sin_lat.array() * (cos_lat.array().pow(5)) * ((double)61 - (double)58 * tan_lat.array().pow(2) + tan_lat.array().pow(4) + (double)270 * n.array().pow(2) - (double)330 * n.array().pow(2) * tan_lat.array().pow(2) + (double)445 * n.array().pow(4) + (double)324 * n.array().pow(6) - (double)680 * n.array().pow(4) * tan_lat.array().pow(2) + (double)88 * n.array().pow(8) - (double)600 * n.array().pow(6) * tan_lat.array().pow(2) - (double)192 * n.array().pow(8) * tan_lat.array().pow(2)) / (double)720;
+
+    // std::cout << "Nlp4 Test: " << std::endl;
+    // std::cout << Nlp4 << std::endl;
+
+    return Nlp4;
+}
+
+Eigen::MatrixXd CalculateNlp5(Eigen::MatrixXd v, Eigen::MatrixXd d_long, Eigen::MatrixXd cos_lat, Eigen::MatrixXd sin_lat, Eigen::MatrixXd tan_lat, Eigen::MatrixXd n)
+{
+    /* Doing this operation (octave) , this is a full element-wise operation so v[1] communicates with d_long[1] and so on.
+   Nlp5 = v.*dlong.^8.*sin(lat).*(cos(lat).^7).*(1385-3111*t.^2+543*t.^4-t.^6)/40320;
+   x.array() * y.array() are element-wise operations
+   */
+
+    Eigen::MatrixXd Nlp5 = v.array() * d_long.array().pow(8) * sin_lat.array() * (cos_lat.array().pow(7)) * ((double)1385 - (double)3111 * tan_lat.array().pow(2) + (double)543 * tan_lat.array().pow(4) - tan_lat.array().pow(6)) / (double)40320;
+
+    // std::cout << "Nlp5 Test: " << std::endl;
+    // std::cout << Nlp5 << std::endl;
+
+    return Nlp5;
 }
 
 // functions
@@ -174,21 +232,21 @@ CoordinatesUTM LatLong2UTM(Eigen::MatrixXd LatitutePoints, Eigen::MatrixXd Longi
 
     // now doing this operation -> v = a * ones(rows(lat),1) ./ sqrt(1 - e1^2 * ( sin(lat) .* sin(lat) ) );
     double e1_square = pow(e1, 2);
-    Eigen::MatrixXd sin_latitute = LatitutePoints.array().sin();
-    sin_latitute = sin_latitute.array() * sin_latitute.array();
-    sin_latitute = e1_square * sin_latitute;
-    sin_latitute = 1 - sin_latitute.array();
-    sin_latitute = sin_latitute.array().sqrt();
+    Eigen::MatrixXd sin_latitute_forV = LatitutePoints.array().sin();
+    sin_latitute_forV = sin_latitute_forV.array() * sin_latitute_forV.array();
+    sin_latitute_forV = e1_square * sin_latitute_forV;
+    sin_latitute_forV = 1 - sin_latitute_forV.array();
+    sin_latitute_forV = sin_latitute_forV.array().sqrt();
 
     // doing ones()...
     Eigen::MatrixXd ones_Matrix = Eigen::MatrixXd::Ones(LatitutePoints.rows(), 1);
     ones_Matrix = a * ones_Matrix;
 
     // what is this V matrix?
-    Eigen::MatrixXd v = ones_Matrix.array() / sin_latitute.array();
+    Eigen::MatrixXd v = ones_Matrix.array() / sin_latitute_forV.array();
 
-    std::cout << std::endl;
-    std::cout << v << std::endl;
+    // std::cout << std::endl;
+    // std::cout << v << std::endl;
 
     // Serie Coeficients, fourier?
 
@@ -229,14 +287,26 @@ CoordinatesUTM LatLong2UTM(Eigen::MatrixXd LatitutePoints, Eigen::MatrixXd Longi
     // std::cout << "El Result: " << std::endl;
     //  std::cout << std::fixed << std::setprecision(8); // only to show the whole value
     // std::cout << El.row(1) << std::endl; OK CHECKED
+    Eigen::MatrixXd sin_latitute = LatitutePoints.array().sin();
 
-    Eigen::MatrixXd Nlp1 = B;
+    Eigen::MatrixXd Nlp1 = B;                                                                     // OK CHECKED
+    Eigen::MatrixXd Nlp2 = CalculateNlp2(v, D_Long, cos_latitute, sin_latitute, tan_latitude, n); // OK CHECKED
+    Eigen::MatrixXd Nlp3 = CalculateNlp3(v, D_Long, cos_latitute, sin_latitute, tan_latitude, n); // OK CHECKED
+    Eigen::MatrixXd Nlp4 = CalculateNlp4(v, D_Long, cos_latitute, sin_latitute, tan_latitude, n); // OK CHECKED
+    Eigen::MatrixXd Nlp5 = CalculateNlp5(v, D_Long, cos_latitute, sin_latitute, tan_latitude, n); // OK CHECKED
+    Eigen::MatrixXd Nl = Nlp1 + Nlp2 + Nlp3 + Nlp4 + Nlp5;                                        // OK CHECKED
 
-    /*
-    std::cout << "_______________" << std::endl;
-    std::cout << LatitutePoints << std::endl;
-    std::cout << "_______________" << std::endl;
-    std::cout << LatitutePoints << std::endl;
-    */
+    // std::cout << "Nl values:" << std::endl;
+    // std::cout << std::fixed << std::setprecision(8);
+    // std::cout << Nl << std::endl;
+    Eigen::MatrixXd E = El * k0;
+    E = FE + E.array(); // OK CHECKED
+    Eigen::MatrixXd N = Nl * k0;
+    N = FN + N.array();
+
+    ConvertedValues2UTM.East = E;
+    ConvertedValues2UTM.North = N;
+    ConvertedValues2UTM.Fuse = F;
+
     return ConvertedValues2UTM;
 };
