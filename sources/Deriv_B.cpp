@@ -13,6 +13,8 @@ double Deriv_B(double B, double L, double H, Eigen::MatrixXd rpcNumerator, Eigen
 
     /*
     Derivate for B value in relation of the Rpc's the calculus is based in this octave line:
+    Using the Eigen we need to decrease -1 in indexes, because octave/matlab uses >1 indexes for array/matrices
+
     x = (rpc_num(17)*H^2 + rpc_num(11)*H*L + 2*rpc_num(19)*H*B + rpc_num(7)*H + rpc_num(15)*L^2 + 2*rpc_num(13)*L*B + rpc_num(5)*L + 3*rpc_num(16)*B^2 + 2*rpc_num(9)*B + rpc_num(3))    /    ( rpc_den(20)*H^3 + rpc_den(14)*H^2*L + rpc_den(17)*H^2*B + rpc_den(10)*H^2 + rpc_den(18)*H*L^2 + rpc_den(11)*H*L*B + rpc_den(6)*H*L + rpc_den(19)*H*B^2 + rpc_den(7)*H*B + rpc_den(4)*H + rpc_den(12)*L^3 + rpc_den(15)*L^2*B + rpc_den(8)*L^2 + rpc_den(13)*L*B^2 + rpc_den(5)*L*B + rpc_den(2)*L + rpc_den(16)*B^3 + rpc_den(9)*B^2 + rpc_den(3)*B + rpc_den(1))    -    (rpc_den(17)*H^2 + rpc_den(11)*H*L + 2*rpc_den(19)*H*B + rpc_den(7)*H + rpc_den(15)*L^2 + 2*rpc_den(13)*L*B + rpc_den(5)*L + 3*rpc_den(16)*B^2 + 2*rpc_den(9)*B + rpc_den(3))     *  (rpc_num(20)*H^3 + rpc_num(14)*H^2*L + rpc_num(17)*H^2*B + rpc_num(10)*H^2 + rpc_num(18)*H*L^2 + rpc_num(11)*H*L*B + rpc_num(6)*H*L + rpc_num(19)*H*B^2 + rpc_num(7)*H*B + rpc_num(4)*H +rpc_num(12)*L^3 + rpc_num(15)*L^2*B + rpc_num(8)*L^2 + rpc_num(13)*L*B^2 + rpc_num(5)*L*B + rpc_num(2)*L + rpc_num(16)*B^3 + rpc_num(9)*B^2 + rpc_num(3)*B + rpc_num(1))      /    (rpc_den(20)*H^3 + rpc_den(14)*H^2*L + rpc_den(17)*H^2*B + rpc_den(10)*H^2 + rpc_den(18)*H*L^2 + rpc_den(11)*H*L*B + rpc_den(6)*H*L + rpc_den(19)*H*B^2 + rpc_den(7)*H*B + rpc_den(4)*H + rpc_den(12)*L^3 + rpc_den(15)*L^2*B + rpc_den(8)*L^2 + rpc_den(13)*L*B^2 + rpc_den(5)*L*B + rpc_den(2)*L + rpc_den(16)*B^3 + rpc_den(9)*B^2 + rpc_den(3)*B + rpc_den(1))^2;
      */
 
