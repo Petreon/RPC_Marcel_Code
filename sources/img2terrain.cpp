@@ -146,6 +146,8 @@ to aproximate initial values for the line and collumn of the pixel in both image
 /*
 This section does the matrix multiplications as in a iterative method
 The purpose is to aproximate initial values through Least Squares, to later ajustment
+
+obs: Static size matrixes were used to optimeze performance.
 */
     Eigen::Matrix<double,4,3> A;
     Eigen::Matrix<double,4,1> L;
@@ -220,9 +222,9 @@ The purpose is to aproximate initial values through Least Squares, to later ajus
             just like the Initial Aproximation.
             */
 
-            A << Deriv_L(B_Img1, L_Img1, H_Img1)/longCorrection1.scale, Deriv_B(B_Img1, L_Img1, H_Img1)/latCorrection1.scale, Deriv_H(B_Img1, L_Img1, H_Img1)/hCorrection1.scale
-                 Deriv_L(B_Img1, L_Img1, H_Img1)/longCorrection1.scale, Deriv_B(B_Img1, L_Img1, H_Img1)/latCorrection1.scale, Deriv_H(B_Img1, L_Img1, H_Img1)/hCorrection1.scale
-                 Deriv_L(B_Img2, L_Img2, H_Img2)/longCorrection2.scale, Deriv_B(B_Img2, L_Img2, H_Img2)/latCorrection2.scale, Deriv_H(B_Img2, L_Img2, H_Img2)/hCorrection2.scale
+            A << Deriv_L(B_Img1, L_Img1, H_Img1)/longCorrection1.scale, Deriv_B(B_Img1, L_Img1, H_Img1)/latCorrection1.scale, Deriv_H(B_Img1, L_Img1, H_Img1)/hCorrection1.scale;
+                 Deriv_L(B_Img1, L_Img1, H_Img1)/longCorrection1.scale, Deriv_B(B_Img1, L_Img1, H_Img1)/latCorrection1.scale, Deriv_H(B_Img1, L_Img1, H_Img1)/hCorrection1.scale;
+                 Deriv_L(B_Img2, L_Img2, H_Img2)/longCorrection2.scale, Deriv_B(B_Img2, L_Img2, H_Img2)/latCorrection2.scale, Deriv_H(B_Img2, L_Img2, H_Img2)/hCorrection2.scale;
                  Deriv_L(B_Img2, L_Img2, H_Img2)/longCorrection2.scale, Deriv_B(B_Img2, L_Img2, H_Img2)/latCorrection2.scale, Deriv_H(B_Img2, L_Img2, H_Img2)/hCorrection2.scale;
 
             L << l1(0,0) - l_LineImg1,
@@ -232,9 +234,9 @@ The purpose is to aproximate initial values through Least Squares, to later ajus
             
             Eigen::MatrixXd X = mmq(A,L).Xa;
 
-            Long = Long(i,0) + X(0,0);
-            Lat = Lat(i,0) + X(1,0);
-            h = h(i,0) + X(2,0);
+            Long(i,0) = Long(i,0) + X(0,0);
+            Lat(i,0) = Lat(i,0) + X(1,0);
+            h(i,0) = h(i,0) + X(2,0);
         }
     }
 
