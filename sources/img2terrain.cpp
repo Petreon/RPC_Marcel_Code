@@ -69,7 +69,7 @@ to aproximate initial values for the line and collumn of the pixel in both image
     double b3_Img1 =   Coefs_Img1.b(3,0) * longCorrection1.scale * latCorrection1.scale;
 
 	
-    double c0_Img1 =   Coefs_Img1.c[0] * longCorrection1.scale * latCorrection1.scale * hCorrection1.scale - 
+    double c0_Img1 =   Coefs_Img1.c(0,0) * longCorrection1.scale * latCorrection1.scale * hCorrection1.scale - 
                                 Coefs_Img1.c(1,0) * longCorrection1.off * latCorrection1.scale * hCorrection1.scale - 
                                 Coefs_Img1.c(2,0) * longCorrection1.scale * latCorrection1.off * hCorrection1.scale -
                                 Coefs_Img1.c(3,0) * longCorrection1.scale * latCorrection1.scale * hCorrection1.off;
@@ -120,7 +120,7 @@ to aproximate initial values for the line and collumn of the pixel in both image
 
 
 
-    double c0_Img2 =   Coefs_Img2.c[0] * longCorrection2.scale * latCorrection2.scale * hCorrection2.scale - 
+    double c0_Img2 =   Coefs_Img2.c(0,0) * longCorrection2.scale * latCorrection2.scale * hCorrection2.scale - 
                                 Coefs_Img2.c(1,0) * longCorrection2.off * latCorrection2.scale * hCorrection2.scale - 
                                 Coefs_Img2.c(2,0) * longCorrection2.scale * latCorrection2.off * hCorrection2.scale -
                                 Coefs_Img2.c(3,0) * longCorrection2.scale * latCorrection2.scale * hCorrection2.off;
@@ -152,15 +152,15 @@ The purpose is to aproximate initial values through Least Squares, to later ajus
     Eigen::MatrixXd Xa;
     for (int i = 0; i < Line1.rows(); i++)
     {
-         A << a1_Img1-l1[i]*b1_Img1, a2_Img1-l1[i]*b2_Img1, a3_Img1-l1[i]*b3_Img1,
-              c1_Img1-s1[i]*d1_Img1, c2_Img1-s1[i]*d2_Img1, c3_Img1-s1[i]*d3_Img1,
-              a1_Img2-l2[i]*b1_Img2, a2_Img2-l2[i]*b2_Img2, a3_Img2-l2[i]*b3_Img2,
-              c1_Img2-s2[i]*d1_Img2, c2_Img2-s2[i]*d2_Img2, c3_Img2-s2[i]*d3_Img2;
+         A << a1_Img1-l1(i,0)*b1_Img1, a2_Img1-l1(i,0)*b2_Img1, a3_Img1-l1(i,0)*b3_Img1,
+              c1_Img1-s1(i,0)*d1_Img1, c2_Img1-s1(i,0)*d2_Img1, c3_Img1-s1(i,0)*d3_Img1,
+              a1_Img2-l2(i,0)*b1_Img2, a2_Img2-l2(i,0)*b2_Img2, a3_Img2-l2(i,0)*b3_Img2,
+              c1_Img2-s2(i,0)*d1_Img2, c2_Img2-s2(i,0)*d2_Img2, c3_Img2-s2(i,0)*d3_Img2;
 
-        L << l1[i]*b0_Img1 - a0_Img1, 
-             s1[0]*d0_Img1 - c0_Img1,
-             l2[i]*b0_Img2 - a0_Img2, 
-             s2[0]*d0_Img2 - c0_Img2;
+        L << l1(i,0)*b0_Img1 - a0_Img1, 
+             s1(0,0)*d0_Img1 - c0_Img1,
+             l2(i,0)*b0_Img2 - a0_Img2, 
+             s2(0,0)*d0_Img2 - c0_Img2;
 
         Xa = mmq(A,L).Xa;
     }
@@ -181,9 +181,9 @@ The purpose is to aproximate initial values through Least Squares, to later ajus
         Pontosh(i,1) = 3*i;
     }
 
-    Eigen::MatrixXd Long = Xa(PontosLong,Eigen::placeholders::all);
-    Eigen::MatrixXd Lat = Xa(PontosLat,Eigen::placeholders::all);
-    Eigen::MatrixXd h = Xa(Pontosh,Eigen::placeholders::all);
+    Eigen::MatrixXd Long = Xa(PontosLong,Eigen::all);
+    Eigen::MatrixXd Lat = Xa(PontosLat,Eigen::all);
+    Eigen::MatrixXd h = Xa(Pontosh,Eigen::all);
 
     //iterative method
     
@@ -225,16 +225,16 @@ The purpose is to aproximate initial values through Least Squares, to later ajus
                  Deriv_L(B_Img2, L_Img2, H_Img2)/longCorrection2.scale, Deriv_B(B_Img2, L_Img2, H_Img2)/latCorrection2.scale, Deriv_H(B_Img2, L_Img2, H_Img2)/hCorrection2.scale
                  Deriv_L(B_Img2, L_Img2, H_Img2)/longCorrection2.scale, Deriv_B(B_Img2, L_Img2, H_Img2)/latCorrection2.scale, Deriv_H(B_Img2, L_Img2, H_Img2)/hCorrection2.scale;
 
-            L << l1[0] - l_LineImg1,
-                 s1[0] - s_CollumnImg1,
-                 l2[0] - l_LineImg2,
-                 s2[0] - s_CollumnImg2;
+            L << l1(0,0) - l_LineImg1,
+                 s1(0,0) - s_CollumnImg1,
+                 l2(0,0) - l_LineImg2,
+                 s2(0,0) - s_CollumnImg2;
             
-            Eigen::Matrix<double,3,1> X = mmq(A,L).Xa
+            Eigen::MatrixXd X = mmq(A,L).Xa;
 
-            Long = Long(i,0) + X(0,0)
-            Lat = Lat(i,0) + X(1,0)
-            h = h(i,0) + X(2,0)
+            Long = Long(i,0) + X(0,0);
+            Lat = Lat(i,0) + X(1,0);
+            h = h(i,0) + X(2,0);
         }
     }
 

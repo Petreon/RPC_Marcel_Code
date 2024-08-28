@@ -104,8 +104,11 @@ int main()
 
     double result = Deriv_H(B, H, L, rpc_num, rpc_den);
     double octave_result = 0.0172587132903387;
-    std::cout << result;
-    double relative_error = result - octave_result;
+    double relative_error = abs(result - octave_result);
     relative_error = relative_error / octave_result;
     relative_error = relative_error * 100;
+    relative_error = relative_error;
+
+    std::cout << "\nerro: " << relative_error << "\nresultado: " << result << "\toctave: " << octave_result <<"\n\n";
+    return 0;
 }
