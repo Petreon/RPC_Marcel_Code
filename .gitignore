@@ -9,3 +9,5 @@ tests/teste1
 *.so
 *.out
 *.a
+*
+!*.*
