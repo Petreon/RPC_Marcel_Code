@@ -1,9 +1,12 @@
-# This is an RPC algorithm Based on a Monography from Marcel Emanuelli Rotunno
+ # ![alt-text][lfsr-logo] RPC Processing Module for Satelite Imagery
 
 ## Objective
+ - The objective of this module is to add the satelite image processing feature to the [E-Foto](https://github.com/lfsruerj/e-foto-tests) software
 
+## Workflow Diagram of the Main Function:
+- lorem ipsilum dolor sit ment
 ## Guidelines
-lorem ipsulum dolor amet sic 
+- lorem ipsulum dolor amet sic 
 
 ## Understanding Parameters' Names
 
@@ -49,3 +52,4 @@ Bibliografia p.47
 
 CDU 62:528.9
 
+[lfsr-logo]: loremipsilum
