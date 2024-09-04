@@ -1,4 +1,4 @@
- # ![alt-text][lfsr-logo] RPC Processing Module for Satelite Imagery
+ # ![lfsr logo](http://www.efoto.eng.uerj.br/images/LFSR.png) RPC Processing Module for Satelite Imagery
 
 ## Objective
  - The objective of this module is to add the satelite image processing feature to the [E-Foto](https://github.com/lfsruerj/e-foto-tests) software
@@ -52,4 +52,4 @@ Bibliografia p.47
 
 CDU 62:528.9
 
-[lfsr-logo]: loremipsilum
+[lfsr-logo]: (http://www.efoto.eng.uerj.br/images/LFSR.png)
