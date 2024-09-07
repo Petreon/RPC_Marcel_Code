@@ -36,8 +36,14 @@ typedef struct CoordinatesUTM
 
 typedef struct Coeficients
 {
-    Eigen::Matrix<double,20,1> a;
-    Eigen::Matrix<double,20,1> b;
-    Eigen::Matrix<double,20,1> c;
-    Eigen::Matrix<double,20,1> d;
+    Eigen::Matrix<double, 20, 1> a;
+    Eigen::Matrix<double, 20, 1> b;
+    Eigen::Matrix<double, 20, 1> c;
+    Eigen::Matrix<double, 20, 1> d;
 } Coeficients;
+
+typedef struct RecalcReturn
+{
+    Eigen::MatrixXd Calc_rpc_nl;
+    Eigen::MatrixXd Calc_rpc_ns;
+} RecalcReturn;

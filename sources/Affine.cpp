@@ -15,6 +15,16 @@ AffineReturn Affine(Eigen::MatrixXd Line, Eigen::MatrixXd Sample, Eigen::MatrixX
     all the matrixes are 4x1, so the rows are dynamic but the columns always 1
     Nx1 matrices
     */
+    // std::cout << "Affine: ---------" << std::endl;
+    // std::cout << Line << std::endl
+    //           << std::endl;
+    // std::cout << Sample << std::endl
+    //           << std::endl;
+    // std::cout << LineMeas << std::endl
+    //           << std::endl;
+    // std::cout << SampleMeas << std::endl
+    //           << std::endl;
+
     AffineReturn Xa_V_Matrixes;
     int rows_size = Line.rows(); // Nx1 matrix
 
@@ -56,12 +66,15 @@ AffineReturn Affine(Eigen::MatrixXd Line, Eigen::MatrixXd Sample, Eigen::MatrixX
     // subtracting the matrixes
     Eigen::MatrixXd line_LineMeas = Line - LineMeas;
     Eigen::MatrixXd Sample_SampleMeas = Sample - SampleMeas;
+
+    // std::cout << "Diferential affines:" << std::endl;
     // std::cout << line_LineMeas << std::endl;
+    // std::cout << Sample_SampleMeas << std::endl;
 
     // substituing the values in L Matrix
     L_matrix.block(0, 0, line_LineMeas.rows(), 1) = line_LineMeas;
     L_matrix.block(4, 0, line_LineMeas.rows(), 1) = Sample_SampleMeas;
-    // std::cout << L << std::endl;
+    // std::cout << L_matrix << std::endl;
 
     // what is mmq operation
     mmqReturn mmqOperation = mmq(A_matrix, L_matrix);
@@ -69,6 +82,10 @@ AffineReturn Affine(Eigen::MatrixXd Line, Eigen::MatrixXd Sample, Eigen::MatrixX
     // Xa need to be 6x1 and V 8x1
     Xa_V_Matrixes.Xa = mmqOperation.Xa;
     Xa_V_Matrixes.V = mmqOperation.V;
+
+    // std::cout << "MMq result inside Affine:" << std::endl;
+    // std::cout << Xa_V_Matrixes.Xa << std::endl;
+    // std::cout << Xa_V_Matrixes.V << std::endl;
 
     return Xa_V_Matrixes;
 };

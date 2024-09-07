@@ -1,6 +1,5 @@
 // Include libraries and functions
 #include "../includes/Eigen/Dense"
-#include "mmq.cpp"
 #include <iostream>
 #include "structs.h"
 

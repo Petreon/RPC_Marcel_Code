@@ -4,7 +4,7 @@
 #include "structs.h"
 // functions
 
-long ElementDesnormalization(long normalaizedValue, long OffSetFactor, long ScaleFactor)
+inline long ElementDesnormalization(long normalaizedValue, long OffSetFactor, long ScaleFactor)
 {
     return (normalaizedValue * ScaleFactor) + OffSetFactor;
 };
@@ -22,4 +22,13 @@ Eigen::MatrixXd ImgDesnormalization(Eigen::MatrixXd img, CorrectionValues desnor
         }
     }
     return img;
+}
+
+Eigen::MatrixXd Desnor(Eigen::MatrixXd Matrix_Norm, double off, double scale)
+{
+
+    Eigen::MatrixXd result = Matrix_Norm * scale;
+    result = result.array() + off;
+
+    return result;
 }
