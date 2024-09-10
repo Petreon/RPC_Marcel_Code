@@ -222,10 +222,10 @@ obs: Static size matrixes were used to optimeze performance.
             just like the Initial Aproximation.
             */
 
-            A << Deriv_L(B_Img1, L_Img1, H_Img1)/longCorrection1.scale, Deriv_B(B_Img1, L_Img1, H_Img1)/latCorrection1.scale, Deriv_H(B_Img1, L_Img1, H_Img1)/hCorrection1.scale;
-                 Deriv_L(B_Img1, L_Img1, H_Img1)/longCorrection1.scale, Deriv_B(B_Img1, L_Img1, H_Img1)/latCorrection1.scale, Deriv_H(B_Img1, L_Img1, H_Img1)/hCorrection1.scale;
-                 Deriv_L(B_Img2, L_Img2, H_Img2)/longCorrection2.scale, Deriv_B(B_Img2, L_Img2, H_Img2)/latCorrection2.scale, Deriv_H(B_Img2, L_Img2, H_Img2)/hCorrection2.scale;
-                 Deriv_L(B_Img2, L_Img2, H_Img2)/longCorrection2.scale, Deriv_B(B_Img2, L_Img2, H_Img2)/latCorrection2.scale, Deriv_H(B_Img2, L_Img2, H_Img2)/hCorrection2.scale;
+            A << Deriv_L(B_Img1, L_Img1, H_Img1, Coefs_Img1.a, Coefs_Img1.b)/longCorrection1.scale, Deriv_B(B_Img1, L_Img1, H_Img1, Coefs_Img1.a, Coefs_Img1.b)/latCorrection1.scale, Deriv_H(B_Img1, L_Img1, H_Img1, Coefs_Img1.a, Coefs_Img1.b)/hCorrection1.scale;
+                 Deriv_L(B_Img1, L_Img1, H_Img1, Coefs_Img1.c, Coefs_Img1.d)/longCorrection1.scale, Deriv_B(B_Img1, L_Img1, H_Img1, Coefs_Img1.c, Coefs_Img1.d)/latCorrection1.scale, Deriv_H(B_Img1, L_Img1, H_Img1, Coefs_Img1.c, Coefs_Img1.d)/hCorrection1.scale;
+                 Deriv_L(B_Img2, L_Img2, H_Img2, Coefs_Img2.a, Coefs_Img2.b)/longCorrection2.scale, Deriv_B(B_Img2, L_Img2, H_Img2, Coefs_Img2.a, Coefs_Img2.b)/latCorrection2.scale, Deriv_H(B_Img2, L_Img2, H_Img2, Coefs_Img2.a, Coefs_Img2.b)/hCorrection2.scale;
+                 Deriv_L(B_Img2, L_Img2, H_Img2, Coefs_Img2.c, Coefs_Img2.d)/longCorrection2.scale, Deriv_B(B_Img2, L_Img2, H_Img2, Coefs_Img2.c, Coefs_Img2.d)/latCorrection2.scale, Deriv_H(B_Img2, L_Img2, H_Img2, Coefs_Img2.c, Coefs_Img2.d)/hCorrection2.scale;
 
             L << l1(0,0) - l_LineImg1,
                  s1(0,0) - s_CollumnImg1,
