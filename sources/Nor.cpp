@@ -1,15 +1,7 @@
 // Include libraries and functions
 #include "../includes/Eigen/Dense"
-#include "mmq.cpp"
 #include <iostream>
 #include "structs.h"
-
-/*
-struct to acesses the offset and scale
-values for a property to be normalized
-*/
-
-// functions
 
 /*
 function to take the a general value related to each

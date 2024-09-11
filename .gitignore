@@ -1,3 +1,6 @@
 tests/*.exe
 .vscode/
 tests/output/
+tests/*.out
+tests/teste1
+

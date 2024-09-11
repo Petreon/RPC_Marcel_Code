@@ -1,5 +1,6 @@
 #pragma once
 #include "../includes/Eigen/Dense"
+#include <iostream>
 
 typedef struct CorrectionValues
 {
@@ -23,5 +24,26 @@ typedef struct Coordinates
 {
     Eigen::MatrixXd Lat;
     Eigen::MatrixXd Long;
-    Eigen::MatrixXd altitude;
+    Eigen::MatrixXd Height;
 } Coordinates;
+
+typedef struct CoordinatesUTM
+{
+    Eigen::MatrixXd East;
+    Eigen::MatrixXd North;
+    Eigen::MatrixXd Fuse;
+} CoordinatesUTM;
+
+typedef struct Coeficients
+{
+    Eigen::Matrix<double, 20, 1> a;
+    Eigen::Matrix<double, 20, 1> b;
+    Eigen::Matrix<double, 20, 1> c;
+    Eigen::Matrix<double, 20, 1> d;
+} Coeficients;
+
+typedef struct RecalcReturn
+{
+    Eigen::MatrixXd Calc_rpc_nl;
+    Eigen::MatrixXd Calc_rpc_ns;
+} RecalcReturn;
