@@ -211,11 +211,11 @@ obs: Static size matrixes were used to optimeze performance.
             this iteration's Ground Coordinates normalized above
             */
 
-            double l_LineImg1 = Polrfm(Coefs_Img1.a, L_Img1,B_Img1,H_Img1) / Polrfm(Coefs_Img1.b, L_Img1,B_Img1,H_Img1);
-            double s_CollumnImg1 = Polrfm(Coefs_Img1.c, L_Img1,B_Img1,H_Img1) / Polrfm(Coefs_Img1.d, L_Img1,B_Img1,H_Img1);
+            double l_LineImg1 = Polrfm(B_Img1,L_Img1,H_Img1, Coefs_Img1.a) / Polrfm(B_Img1,L_Img1,H_Img1, Coefs_Img1.b);
+            double s_CollumnImg1 = Polrfm(B_Img1,L_Img1,H_Img1, Coefs_Img1.c) / Polrfm(B_Img1,L_Img1,H_Img1, Coefs_Img1.d);
 
-            double l_LineImg2 = Polrfm(Coefs_Img2.a, L_Img2,B_Img2,H_Img2) / Polrfm(Coefs_Img2.b, L_Img2,B_Img2,H_Img2);
-            double s_CollumnImg2 = Polrfm(Coefs_Img2.c, L_Img2,B_Img2,H_Img2) / Polrfm(Coefs_Img2.d, L_Img2,B_Img2,H_Img2);
+            double l_LineImg2 = Polrfm(B_Img2,L_Img2,H_Img2, Coefs_Img2.a) / Polrfm(B_Img2,L_Img2,H_Img2, Coefs_Img2.b);
+            double s_CollumnImg2 = Polrfm(B_Img2,L_Img2,H_Img2, Coefs_Img2.c) / Polrfm(B_Img2,L_Img2,H_Img2, Coefs_Img2.d);
         
             /*
             The parameters ajustment is done through a Least Squares
