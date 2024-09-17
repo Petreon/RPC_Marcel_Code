@@ -1,7 +1,7 @@
 // Inlcude Nor
 #include <iostream>
 #include "../includes/Eigen/Dense"
-#include "../sources/Nor.cpp"
+#include "../headers/Nor.h"
 #include "../sources/structs.h"
 // use the function nor with Asserts librarie, if we change this project to CMAKE we will use, CTEST probably
 // but in the init use this way
@@ -23,7 +23,7 @@ int main()
 
     ElementNormalization(100, 100, 100); // Nor.cpp function
 
-    Eigen::Matrix<double, 4, 4> mat;
+    Eigen::Matrix<double, 2, 2> mat;
     mat(0, 0) = 4;
     mat(1, 0) = 3;
     mat(0, 1) = -2;

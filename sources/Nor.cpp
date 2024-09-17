@@ -7,7 +7,7 @@
 function to take the a general value related to each
 point (lat, long, height, line, collumn, for example) and normalize them
 */
-long ElementNormalization(long value, long OffSetFactor, long ScaleFactor)
+double ElementNormalization(double value, double OffSetFactor, double ScaleFactor)
 {
     return ((value - OffSetFactor) / ScaleFactor);
 }
