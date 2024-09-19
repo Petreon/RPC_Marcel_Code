@@ -2,7 +2,7 @@
 #include <iostream> // IO C++ library
 #include "../includes/Eigen/Dense"
 
-double Polrfm(double rpc[20], double l, double b, double h);
+//double Polrfm(double rpc(0,20], double l, double b, double h);
 /*
 int main()
 {
@@ -46,10 +46,10 @@ int main()
     return 0;
 }
 */
-double Polrfm_pedro(double rpc[20], double l, double b, double h)
+double Polrfm(double b, double l, double h, Eigen::MatrixXd rpc)
 {
     double somatorio;
-    somatorio = rpc[0] + (rpc[1] * l) + (rpc[2] * b) + (rpc[3] * h) + (rpc[4] * l * b) + (rpc[5] * l * h) + (rpc[6] * b * h) + (rpc[7] * l * l) + (rpc[8] * b * b) + (rpc[9] * h * h) + (rpc[10] * b * l * h) + (rpc[11] * l * l * l) + (rpc[12] * l * b * b) + (rpc[13] * l * h * h) + (rpc[14] * l * l * b) + (rpc[15] * b * b * b) + (rpc[16] * b * h * h) + (rpc[17] * l * l * h) + (rpc[18] * b * b * h) + (rpc[19] * h * h * h);
+    somatorio = rpc(0,0) + (rpc(0,1) * l) + (rpc(0,2) * b) + (rpc(0,3) * h) + (rpc(0,4) * l * b) + (rpc(0,5) * l * h) + (rpc(0,6) * b * h) + (rpc(0,7) * l * l) + (rpc(0,8) * b * b) + (rpc(0,9) * h * h) + (rpc(0,10) * b * l * h) + (rpc(0,11) * l * l * l) + (rpc(0,12) * l * b * b) + (rpc(0,13) * l * h * h) + (rpc(0,14) * l * l * b) + (rpc(0,15) * b * b * b) + (rpc(0,16) * b * h * h) + (rpc(0,17) * l * l * h) + (rpc(0,18) * b * b * h) + (rpc(0,19) * h * h * h);
     return somatorio;
 };
 
