@@ -1,4 +1,6 @@
 #pragma once
+#include "../sources/structs.h"
+
 double CalculateA0(double e1_square2, double e1_square4, double e1_square6, double e1_square8);
 double CalculateA2(double e1_square2, double e1_square4, double e1_square6, double e1_square8);
 double CalculateA4(double e1_square2, double e1_square4, double e1_square6, double e1_square8);
