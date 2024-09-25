@@ -207,7 +207,7 @@ int main() {
                3118,
                18251;
                
-    CorrectionValues l1Correction = {0,16225};
+    CorrectionValues l1Correction = {16506,16225};
     CorrectionValues s1Correction = {17808, 17577};
     CorrectionValues l2Correction = {17419, 17282};
     CorrectionValues s2Correction = {16571, 16531};
