@@ -1,4 +1,4 @@
 #pragma once
-#include "../sources/structs.h"
+#include "structs.h"
 
 mmqReturn mmq(Eigen::MatrixXd A, Eigen::MatrixXd L);
