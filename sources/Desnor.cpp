@@ -1,7 +1,8 @@
 // Include libraries and functions
 #include "../includes/Eigen/Dense"
 #include <iostream>
-#include "structs.h"
+#include "structs.hpp"
+#include "Desnor.hpp"
 // functions
 
 inline long ElementDesnormalization(long normalaizedValue, long OffSetFactor, long ScaleFactor)

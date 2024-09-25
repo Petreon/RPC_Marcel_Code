@@ -2,7 +2,7 @@
 #include <cmath>
 #include <iomanip>
 #include "../includes/Eigen/Dense"
-#include "structs.h"
+#include "structs.hpp"
 
 double CalculateA0(double e1_square2, double e1_square4, double e1_square6, double e1_square8)
 {

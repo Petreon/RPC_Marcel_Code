@@ -1,7 +1,7 @@
 // Include libraries and functions
 #include "../includes/Eigen/Dense"
 #include <iostream>
-#include "structs.h"
+#include "structs.hpp"
 
 /*
 function to take the a general value related to each

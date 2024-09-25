@@ -1,6 +1,6 @@
 #include "../includes/Eigen/Dense"
 #include <iostream>
-#include "Deriv_L.h"
+#include "Deriv_L.hpp"
 // Include libraries and functions
 
 // functions

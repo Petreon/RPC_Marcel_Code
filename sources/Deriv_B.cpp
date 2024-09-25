@@ -1,5 +1,5 @@
 #include "../includes/Eigen/Dense"
-#include "Deriv_B.h"
+#include "Deriv_B.hpp"
 #include <iostream>
 
 // Include libraries and functions

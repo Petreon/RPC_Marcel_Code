@@ -31,3 +31,8 @@ CDU 62:528.9
 4. start the cmake build,COMMAND: $ cmake ..
 5. build the program: $ cmake --build .
 </p>
+
+<h2>Example how to compile the tests using g++</h2>
+<p>
+ g++ -g -Wall -I ..\includes\Eigen\Eigen -I ..\headers\ -I ..\headers\utils\ .\mainWork.cpp .\utils\RandPerm.cpp -o teste
+</p>

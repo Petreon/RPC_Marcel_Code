@@ -1,6 +1,6 @@
 #include "../includes/Eigen/Dense"
 #include <iostream>
-#include "structs.h"
+#include "structs.hpp"
 
 // what is this operation?
 mmqReturn mmq(Eigen::MatrixXd A, Eigen::MatrixXd L)

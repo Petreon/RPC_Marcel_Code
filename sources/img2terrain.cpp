@@ -1,12 +1,12 @@
 #include "../includes/Eigen/Dense"
-#include "mmq.h"
+#include "mmq.hpp"
 #include <iostream>
-#include "structs.h"
-#include "Nor.h"
-#include "Polrfm.h"
-#include "Deriv_H.h"
-#include "Deriv_B.h"
-#include "Deriv_L.h"
+#include "structs.hpp"
+#include "Nor.hpp"
+#include "Polrfm.hpp"
+#include "Deriv_H.hpp"
+#include "Deriv_B.hpp"
+#include "Deriv_L.hpp"
 /* 
 This function does the spacial intersection operation, mapping image pixels to ground coordinates,
 that is, [latitude,longitude,height]
@@ -149,9 +149,10 @@ The purpose is to aproximate initial values through Least Squares, to later ajus
 
 obs: Static size matrixes were used to optimeze performance.
 */
-    Eigen::Matrix<double,4,3> A;
-    Eigen::Matrix<double,4,1> L;
+    Eigen::MatrixXd A;
+    Eigen::MatrixXd L;
     Eigen::MatrixXd Xa;
+    mmqReturn teste;
     for (int i = 0; i < Line1.rows(); i++)
     {
          A << a1_Img1-l1(i,0)*b1_Img1, a2_Img1-l1(i,0)*b2_Img1, a3_Img1-l1(i,0)*b3_Img1,
@@ -164,7 +165,8 @@ obs: Static size matrixes were used to optimeze performance.
              l2(i,0)*b0_Img2 - a0_Img2, 
              s2(i,0)*d0_Img2 - c0_Img2;
 
-        Xa = mmq(A,L).Xa;
+        teste = mmq(A,L);
+        Xa = teste.Xa;
     }
     
     /*

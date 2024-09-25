@@ -1,4 +1,4 @@
-#include "../../headers/utils/RandPerm.h"
+#include "RandPerm.hpp"
 
 Eigen::MatrixXd RandPermutation(int size) {
     // Create a vector with numbers from 0 to size-1

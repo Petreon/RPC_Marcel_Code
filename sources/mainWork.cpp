@@ -1,8 +1,8 @@
-#include "Affine.h"
-#include "Desnor.h"
-#include "img2terrain.h"
-#include "latlong2utm.h"
-#include "utils/RandPerm.h"
+#include "Affine.hpp"
+#include "Desnor.hpp"
+#include "img2terrain.hpp"
+#include "latlong2utm.hpp"
+#include "utils/RandPerm.hpp"
 
 //2 PARÂMETROS DA IMAGEM (OFFSET E SCALE) - Presente nos arquivos .RPB de metadados da imagem
 // TODO: GET THIS FROM FILE METADATA
@@ -46,9 +46,10 @@ int main(int argc, char* argv[]){
 
     Eigen::MatrixXd B1_pc(18,1);
 
+
     for (int i = 0; i < runTimes; i++){
 
-        Eigen::MatrixXd SORTITION = RandPermutation(B1_pc.size());
+        Eigen::MatrixXd SORTITION = RandPermutation(B1_pc.rows());
 
 
     }

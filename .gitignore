@@ -4,3 +4,5 @@ tests/output/
 tests/*.out
 tests/teste1
 build/
+builds/
+sources/*.exe

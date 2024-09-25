@@ -1,11 +1,12 @@
 // Include libraries and functions
 #include "../includes/Eigen/Dense"
+#include <memory>
 #include <iostream>
-#include "Affine.h"
-#include "Polrfm.h"
-#include "structs.h"
-#include "Desnor.h"
-#include "Nor.h"
+#include "Affine.hpp"
+#include "Polrfm.hpp"
+#include "structs.hpp"
+#include "Desnor.hpp"
+#include "Nor.hpp"
 
 // functions
 RecalcReturn RecalcRPC(Eigen::MatrixXd Bn, Eigen::MatrixXd Ln, Eigen::MatrixXd Hn, Eigen::MatrixXd rpc_nl, Eigen::MatrixXd rpc_dl, Eigen::MatrixXd rpc_ns, Eigen::MatrixXd rpc_ds, Eigen::MatrixXd LineMeas, Eigen::MatrixXd SampleMeas, double Line_Off, double Line_Scale, double Sample_Off, double Sample_Scale)

@@ -1,5 +1,5 @@
 #pragma once
-#include "structs.h"
+#include "structs.hpp"
 #include "../includes/Eigen/Dense"
 
 

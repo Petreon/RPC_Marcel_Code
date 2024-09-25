@@ -4,8 +4,8 @@
 
 typedef struct CorrectionValues
 {
-    long scale;
-    long off;
+    double scale;
+    double off;
 } CorrectionValues;
 
 typedef struct mmqReturn
@@ -36,10 +36,10 @@ typedef struct CoordinatesUTM
 
 typedef struct Coeficients
 {
-    Eigen::Matrix<double, 20, 1> a;
-    Eigen::Matrix<double, 20, 1> b;
-    Eigen::Matrix<double, 20, 1> c;
-    Eigen::Matrix<double, 20, 1> d;
+    Eigen::MatrixXd a;
+    Eigen::MatrixXd b;
+    Eigen::MatrixXd c;
+    Eigen::MatrixXd d;
 } Coeficients;
 
 typedef struct RecalcReturn
