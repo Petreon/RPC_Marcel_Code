@@ -25,11 +25,11 @@ CDU 62:528.9
 
 <h2>Executing with CMAKE</h2>
 <p>
-1. Install CMAKE
-2. Create a build folder in the RPC_MARCEL_CODE root
-3. Enter in build folder
-4. start the cmake build,COMMAND: $ cmake ..
-5. build the program: $ cmake --build .
+1. Install CMAKE <br>
+2. Create a build folder in the RPC_MARCEL_CODE root <br>
+3. Enter in build folder <br>
+4. start the cmake build,COMMAND: $ cmake .. <br>
+5. build the program: $ cmake --build . <br>
 </p>
 
 <h2>Example how to compile the tests using g++</h2>
