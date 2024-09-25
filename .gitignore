@@ -3,4 +3,4 @@ tests/*.exe
 tests/output/
 tests/*.out
 tests/teste1
-
+build/
