@@ -1,8 +1,8 @@
-#include "../headers/Affine.h"
-#include "../headers/Desnor.h"
-#include "../headers/img2terrain.h"
-#include "../headers/latlong2utm.h"
-#include "../headers/utils/RandPerm.h"
+#include "Affine.h"
+#include "Desnor.h"
+#include "img2terrain.h"
+#include "latlong2utm.h"
+#include "utils/RandPerm.h"
 
 //2 PARÂMETROS DA IMAGEM (OFFSET E SCALE) - Presente nos arquivos .RPB de metadados da imagem
 // TODO: GET THIS FROM FILE METADATA
@@ -33,8 +33,6 @@
 
 
 
-
-
 int runTimes = 10;
 int trainPoints = 4;
 
@@ -51,7 +49,6 @@ int main(int argc, char* argv[]){
     for (int i = 0; i < runTimes; i++){
 
         Eigen::MatrixXd SORTITION = RandPermutation(B1_pc.size());
-
 
 
     }

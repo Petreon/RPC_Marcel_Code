@@ -22,3 +22,12 @@ Bibliografia p.47
 CDU 62:528.9
 
 </p>
+
+<h2>Executing with CMAKE</h2>
+<p>
+1. Install CMAKE
+2. Create a build folder in the RPC_MARCEL_CODE root
+3. Enter in build folder
+4. start the cmake build,COMMAND: $ cmake ..
+5. build the program: $ cmake --build .
+</p>

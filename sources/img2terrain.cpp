@@ -1,12 +1,12 @@
 #include "../includes/Eigen/Dense"
-#include "mmq.cpp"
+#include "mmq.h"
 #include <iostream>
 #include "structs.h"
-#include "Nor.cpp"
-#include "Polrfm.cpp"
-#include "Deriv_H.cpp"
-#include "Deriv_B.cpp"
-#include "Deriv_L.cpp"
+#include "Nor.h"
+#include "Polrfm.h"
+#include "Deriv_H.h"
+#include "Deriv_B.h"
+#include "Deriv_L.h"
 /* 
 This function does the spacial intersection operation, mapping image pixels to ground coordinates,
 that is, [latitude,longitude,height]

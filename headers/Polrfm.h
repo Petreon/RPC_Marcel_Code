@@ -1,5 +1,5 @@
 #pragma once
-#include "../sources/structs.h"
+#include "structs.h"
 
 
 double Polrfm(double b, double l, double h, Eigen::MatrixXd rpc);

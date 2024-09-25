@@ -1,5 +1,5 @@
 #pragma once
-#include "../sources/structs.h"
+#include "structs.h"
 
 inline long ElementDesnormalization(long normalaizedValue, long OffSetFactor, long ScaleFactor);
 Eigen::MatrixXd ImgDesnormalization(Eigen::MatrixXd img, CorrectionValues desnorCorrection[]);
