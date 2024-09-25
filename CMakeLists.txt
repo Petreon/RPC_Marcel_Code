@@ -8,7 +8,7 @@ set(CMAKE)
 
 #include directories
 
-include_directories(headers includes/Eigen)
+include_directories(headers headers/utils includes/Eigen)
 
 #set(HEADERS
 #     headers/mainWork.hpp
