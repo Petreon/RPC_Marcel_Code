@@ -4,4 +4,4 @@
 
 
 double ElementNormalization(double value, double OffSetFactor, double ScaleFactor);
-Eigen::MatrixXd Normalization(Eigen::MatrixXd img, CorrectionValues correction[]);
+Eigen::MatrixXd Normalization(Eigen::MatrixXd img, CorrectionValues correction);

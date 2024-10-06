@@ -25,7 +25,6 @@ include_directories(headers headers/utils includes/Eigen)
    # headers/utils/RandPerm.hpp)
 
 set(SOURCES
-    sources/mainWork.cpp
     sources/Affine.cpp
     sources/Deriv_B.cpp
     sources/Deriv_H.cpp
@@ -38,8 +37,10 @@ set(SOURCES
     sources/Polrfm.cpp
     sources/RecalcRPC.cpp
     sources/utils/RandPerm.cpp
+    sources/utils/MatrixSubSetting.cpp
     )
 
-add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS})
+add_executable(${PROJECT_NAME} sources/mainWork.cpp ${SOURCES} ${HEADERS})
 
 #executable tests
+add_executable(MatrixSubSetting tests/MatrixSubSetting_tests.cpp ${SOURCES} ${HEADERS})

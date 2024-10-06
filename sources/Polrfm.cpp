@@ -61,7 +61,7 @@ Eigen::MatrixXd Polrfm(Eigen::MatrixXd B, Eigen::MatrixXd L, Eigen::MatrixXd H, 
      [ones(rows(B),1), L, B, H, L.*B, L.*H, B.*H, L.*L, B.*B, H.*H, B.*L.*H, L.*L.*L, L.*B.*B, L.*H.*H, L.*L.*B, B.*B.*B, B.*H.*H, L.*L.*H, B.*B.*H, H.*H.*H] * rpc;
      */
 
-    int n = B.size();         // Number of rows
+    int n = B.rows();         // Number of rows
     Eigen::MatrixXd Z(n, 20); // Create the matrix with 20 columns as per the transformations
 
     // this is to support a multiple Z(x,20) matrix

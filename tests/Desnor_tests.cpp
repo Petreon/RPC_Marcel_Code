@@ -36,10 +36,10 @@ int main()
               << std::endl;
 
     std::cout << "Matrix pos normalizacao:\n"
-              << Normalization(mat, correcao) << "\n"
+              << Normalization(mat, correcao[0]) << "\n"
               << std::endl;
 
-    Eigen::MatrixXd NormalizedMatrix = Normalization(mat, correcao);
+    Eigen::MatrixXd NormalizedMatrix = Normalization(mat, correcao[1]);
     std::cout << "Matrix pos normalizacao:\n"
               << ImgDesnormalization(NormalizedMatrix, correcao) << "\n"
               << std::endl;
