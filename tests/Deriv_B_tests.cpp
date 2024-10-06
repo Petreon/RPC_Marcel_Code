@@ -1,6 +1,6 @@
 #include <iostream>
 #include "../includes/Eigen/Dense"
-#include "../sources/Deriv_B.cpp"
+#include "Deriv_B.hpp"
 
 // values for Ctr-V in octave
 /*

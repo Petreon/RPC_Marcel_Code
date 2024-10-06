@@ -1,6 +1,6 @@
 #pragma once
-#include "structs.hpp"
 #include "../includes/Eigen/Dense"
+#include "img2terrain.hpp" //to include the CorrectionValues
 
 inline long ElementDesnormalization(long normalaizedValue, long OffSetFactor, long ScaleFactor);
 Eigen::MatrixXd ImgDesnormalization(Eigen::MatrixXd img, CorrectionValues desnorCorrection[]);

@@ -4,7 +4,7 @@
 #include <iostream>
 #include "Affine.hpp"
 #include "Polrfm.hpp"
-#include "structs.hpp"
+#include "RecalcRPC.hpp"
 #include "Desnor.hpp"
 #include "Nor.hpp"
 

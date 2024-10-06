@@ -1,5 +1,4 @@
 #pragma once
-#include "structs.hpp"
 #include "../includes/Eigen/Dense"
 
 double Polrfm(double b, double l, double h, Eigen::MatrixXd rpc);

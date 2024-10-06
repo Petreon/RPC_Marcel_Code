@@ -1,8 +1,7 @@
 // Inlcude Nor
 #include <iostream>
 #include "../includes/Eigen/Dense"
-#include "../headers/Nor.h"
-#include "../sources/structs.h"
+#include "Nor.hpp"
 // use the function nor with Asserts librarie, if we change this project to CMAKE we will use, CTEST probably
 // but in the init use this way
 
@@ -31,7 +30,7 @@ int main()
 
     std::cout <<"Matrix pre normalizacao:\n" << mat << "\n" << std::endl;
 
-    std::cout <<"Matrix pos normalizacao:\n" <<  Normalization(mat,line) << "\n" <<std::endl;
+    std::cout <<"Matrix pos normalizacao:\n" <<  Normalization(mat,&line) << "\n" <<std::endl; //need to check thi again
 
     return 0;
 }

@@ -1,13 +1,12 @@
 #include <iostream>
 #include "../includes/Eigen/Dense"
-#include "../sources/structs.h"
-#include "../headers/Nor.h"
-#include "../headers/Polrfm.h"
-#include "../headers/Deriv_H.h"
-#include "../headers/Deriv_B.h"
-#include "../headers/Deriv_L.h"
-#include "../headers/mmq.h"
-#include "../headers/img2terrain.h"
+#include "Nor.hpp"
+#include "Polrfm.hpp"
+#include "Deriv_H.hpp"
+#include "Deriv_B.hpp"
+#include "Deriv_L.hpp"
+#include "Lms.hpp"
+#include "img2terrain.hpp"
 // Function to test
 //Coordinates SpacialInterssection(Coeficients Coefs_Img1, Coeficients Coefs_Img2, Eigen::MatrixXd Line1, Eigen::MatrixXd Sample1, Eigen::MatrixXd Line2, Eigen::MatrixXd Sample2, CorrectionValues l1Correction, CorrectionValues s1Correction, CorrectionValues l2Correction, CorrectionValues s2Correction, CorrectionValues latCorrection1, CorrectionValues longCorrection1, CorrectionValues hCorrection1, CorrectionValues latCorrection2, CorrectionValues longCorrection2, CorrectionValues hCorrection2);
 

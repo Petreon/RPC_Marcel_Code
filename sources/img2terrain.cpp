@@ -1,7 +1,7 @@
 #include "../includes/Eigen/Dense"
-#include "mmq.hpp"
+#include "Lms.hpp"
 #include <iostream>
-#include "structs.hpp"
+#include "img2terrain.hpp"
 #include "Nor.hpp"
 #include "Polrfm.hpp"
 #include "Deriv_H.hpp"
@@ -152,7 +152,7 @@ obs: Static size matrixes were used to optimeze performance.
     Eigen::MatrixXd A;
     Eigen::MatrixXd L;
     Eigen::MatrixXd Xa;
-    mmqReturn teste;
+    LmsReturn teste;
     for (int i = 0; i < Line1.rows(); i++)
     {
          A << a1_Img1-l1(i,0)*b1_Img1, a2_Img1-l1(i,0)*b2_Img1, a3_Img1-l1(i,0)*b3_Img1,
@@ -165,7 +165,7 @@ obs: Static size matrixes were used to optimeze performance.
              l2(i,0)*b0_Img2 - a0_Img2, 
              s2(i,0)*d0_Img2 - c0_Img2;
 
-        teste = mmq(A,L);
+        teste = LeastMinSquare(A,L); //previous mmq
         Xa = teste.Xa;
     }
     
@@ -234,7 +234,7 @@ obs: Static size matrixes were used to optimeze performance.
                  l2(0,0) - l_LineImg2,
                  s2(0,0) - s_CollumnImg2;
             
-            Eigen::MatrixXd X = mmq(A,L).Xa;
+            Eigen::MatrixXd X = LeastMinSquare(A,L).Xa; //previous mmq
 
             Long(i,0) = Long(i,0) + X(0,0);
             Lat(i,0) = Lat(i,0) + X(1,0);

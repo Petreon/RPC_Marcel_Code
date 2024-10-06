@@ -1,7 +1,7 @@
 // Include libraries and functions
 #include "../includes/Eigen/Dense"
-#include "structs.hpp"
-#include "mmq.hpp"
+#include "Affine.hpp"
+#include "Lms.hpp"
 #include <iostream>
 
 // functions
@@ -77,7 +77,7 @@ AffineReturn Affine(Eigen::MatrixXd Line, Eigen::MatrixXd Sample, Eigen::MatrixX
     // std::cout << L_matrix << std::endl;
 
     // what is mmq operation
-    mmqReturn mmqOperation = mmq(A_matrix, L_matrix);
+    LmsReturn mmqOperation = LeastMinSquare(A_matrix, L_matrix);
 
     // Xa need to be 6x1 and V 8x1
     Xa_V_Matrixes.Xa = mmqOperation.Xa;

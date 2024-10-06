@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <iostream> // IO C++ library
 #include "../includes/Eigen/Dense"
+#include "Polrfm.hpp"
 
 //double Polrfm(double rpc(0,20], double l, double b, double h);
 /*

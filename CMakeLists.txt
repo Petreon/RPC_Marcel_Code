@@ -32,7 +32,7 @@ set(SOURCES
     sources/Deriv_L.cpp
     #sources/img2terrain.cpp
     sources/latlong2utm.cpp
-    sources/mmq.cpp
+    sources/Lms.cpp
     sources/Desnor.cpp
     sources/Nor.cpp
     sources/Polrfm.cpp
@@ -41,3 +41,5 @@ set(SOURCES
     )
 
 add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS})
+
+#executable tests

@@ -1,6 +1,6 @@
 #include <iostream>
 #include "../includes/Eigen/Dense"
-#include "../sources/Deriv_H.cpp"
+#include "Deriv_H.hpp"
 
 // g++ -g -Wall -I \includes\Eigen\Eigen \sources\* \tests\Deriv_H_tests.cpp -o teste1
 

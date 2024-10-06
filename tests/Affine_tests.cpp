@@ -1,6 +1,6 @@
 #include <iostream>
 #include "../includes/Eigen/Dense"
-#include "../sources/Affine.cpp"
+#include "Affine.hpp"
 // use the function nor with Asserts libraries, if we change this project to CMAKE we will use CTEST probably
 // but in the init use this way
 

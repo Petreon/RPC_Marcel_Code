@@ -1,6 +1,6 @@
 #include <iostream>
 #include "../includes/Eigen/Dense"
-#include "../sources/mmq.cpp"
+#include "Lms.hpp"
 // use the function nor with Asserts libraries, if we change this project to CMAKE we will use CTEST probably
 // but in the init use this way
 
@@ -30,7 +30,7 @@ int main()
         -0.594153,
         0.0740504;
 
-    mmqReturn XA_V_Matrixes = mmq(A, L);
+    LmsReturn XA_V_Matrixes = LeastMinSquare(A, L);
 
     std::cout << XA_V_Matrixes.Xa << std::endl;
 
