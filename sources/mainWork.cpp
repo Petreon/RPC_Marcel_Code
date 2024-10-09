@@ -21,16 +21,16 @@ int main() {
 
 //1.1 RPCs - Coeficientes da função - Presente nos arquivos .RPB de metadados da imagem
 
-    int **coef1;
-    int **coef2;
+    float **coef1;
+    float **coef2;
     int **coord;
     FILE *fp;
 
 //1.1.1 - RPCs da imagem 1 (matrizes colunas)
     // Alocação dinâmica da matriz
-    coef1 = (int**)malloc(NUM_ARQUIVOS * sizeof(int*));
+    coef1 = (float**)malloc(NUM_ARQUIVOS * sizeof(int*));
     for (int i = 0; i < NUM_ARQUIVOS; i++) {
-        coef1[i] = (int*)malloc(LINHAS_POR_ARQUIVO * sizeof(int));
+        coef1[i] = (float*)malloc(LINHAS_POR_ARQUIVO * sizeof(float));
     }
 
     // Nomes dos arquivos (ajuste conforme necessário)
@@ -45,7 +45,7 @@ int main() {
         }
 
         for (int j = 0; j < LINHAS_POR_ARQUIVO; j++) {
-            if (fscanf(fp, "%d", &coef1[i][j]) != 1) {
+            if (fscanf(fp, "%f", &coef1[i][j]) != 1) {
                 printf("Erro ao ler o arquivo: %s\n", nomes_arquivos[i]);
                 fclose(fp);
                 exit(1);
@@ -53,9 +53,9 @@ int main() {
         }
 //1.1.2 - RPCs da imagem 2 (matrizes colunas)
     // Alocação dinâmica da matriz 2
-    coef2 = (int**)malloc(NUM_ARQUIVOS * sizeof(int*));
+    coef2 = (float**)malloc(NUM_ARQUIVOS * sizeof(float*));
     for (int i = 0; i < NUM_ARQUIVOS; i++) {
-        coef2[i] = (int*)malloc(LINHAS_POR_ARQUIVO * sizeof(int));
+        coef2[i] = (float*)malloc(LINHAS_POR_ARQUIVO * sizeof(float));
     }
 
     // Nomes dos arquivos (ajuste conforme necessário)
@@ -70,7 +70,7 @@ int main() {
         }
 
         for (int j = 0; j < LINHAS_POR_ARQUIVO; j++) {
-            if (fscanf(fp, "%d", &coef2[i][j]) != 1) {
+            if (fscanf(fp, "%f", &coef2[i][j]) != 1) {
                 printf("Erro ao ler o arquivo: %s\n", nomes_arquivos2[i]);
                 fclose(fp);
                 exit(1);
