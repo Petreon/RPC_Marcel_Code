@@ -11,8 +11,10 @@
 
 #define NUM_ARQUIVOS 4
 #define LINHAS_POR_ARQUIVO 20
+
 #define NUM_ARQUIVOS2 3
-#define LINHAS_POR_ARQUIVO2 40
+#define LINHAS_POR_ARQUIVO2 36
+
 #define NUM_ARQUIVOS3 2
 #define LINHAS_POR_ARQUIVO3 36
 
@@ -23,7 +25,6 @@ int main() {
 
     float **coef1;
     float **coef2;
-    int **coord;
     FILE *fp;
 
 //1.1.1 - RPCs da imagem 1 (matrizes colunas)
@@ -78,11 +79,12 @@ int main() {
         }
 
 //1.2 Coordenadas dos pontos de campo no espaço objeto (latitude, longitude e altitude geodésicas) - Pontos E-Foto + Pontos utilizados no projeto da Adriana
+        float **coord;
 
     // Alocação dinâmica da matriz coord
-    coord = (int**)malloc(NUM_ARQUIVOS2 * sizeof(int*));
+    coord = (float**)malloc(NUM_ARQUIVOS2 * sizeof(float*));
     for (int i = 0; i < NUM_ARQUIVOS2; i++) {
-        coord[i] = (int*)malloc(LINHAS_POR_ARQUIVO2 * sizeof(int));
+        coord[i] = (float*)malloc(LINHAS_POR_ARQUIVO2 * sizeof(float));
     }
 
     // Nomes dos arquivos (ajuste conforme necessário)
@@ -97,7 +99,7 @@ int main() {
         }
 
         for (int j = 0; j < LINHAS_POR_ARQUIVO2; j++) {
-            if (fscanf(fp, "%d", &coord[i][j]) != 1) {
+            if (fscanf(fp, "%f", &coord[i][j]) != 1) {
                 printf("Erro ao ler o arquivo: %s\n", nomes_arquivos3[i]);
                 fclose(fp);
                 exit(1);
@@ -105,6 +107,10 @@ int main() {
         }
 
 //1.3 Coordenadas dos pontos de campo no espaço imagem (medidos/observados na imagem) - " + "
+        int **coord2;
+        int **coord3;
+        
+
 
     //1.3.1 - Para a imagem 1
 
@@ -136,7 +142,7 @@ int main() {
     //1.3.2 - Para a imagem 2
 
     // Alocação dinâmica da matriz coord3
-    coord2 = (int**)malloc(NUM_ARQUIVOS3 * sizeof(int*));
+    coord3 = (int**)malloc(NUM_ARQUIVOS3 * sizeof(int*));
     for (int i = 0; i < NUM_ARQUIVOS3; i++) {
         coord3[i] = (int*)malloc(LINHAS_POR_ARQUIVO3 * sizeof(int));
     }
