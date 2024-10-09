@@ -149,8 +149,8 @@ The purpose is to aproximate initial values through Least Squares, to later ajus
 
 obs: Static size matrixes were used to optimeze performance.
 */
-    Eigen::MatrixXd A;
-    Eigen::MatrixXd L;
+    Eigen::MatrixXd A(4,3);
+    Eigen::MatrixXd L(4,1);
     Eigen::MatrixXd Xa;
     LmsReturn teste;
     for (int i = 0; i < Line1.rows(); i++)
@@ -185,9 +185,9 @@ obs: Static size matrixes were used to optimeze performance.
         Pontosh(i,0) = 3*i;
     }
 
-    Eigen::MatrixXd Long = Xa(PontosLong,Eigen::all);
-    Eigen::MatrixXd Lat = Xa(PontosLat,Eigen::all);
-    Eigen::MatrixXd h = Xa(Pontosh,Eigen::all);
+    Eigen::MatrixXd Long = Xa(PontosLong,0);
+    Eigen::MatrixXd Lat = Xa(PontosLat,0);
+    Eigen::MatrixXd h = Xa(Pontosh,0);
 
     //iterative method
     
