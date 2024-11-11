@@ -151,6 +151,8 @@ obs: Static size matrixes were used to optimeze performance.
 */
     Eigen::MatrixXd A(4,3);
     Eigen::MatrixXd L(4,1);
+    /*Eigen::MatrixXd A(Line1.rows(), 3);
+    Eigen::MatrixXd L(Line1.rows(), 1);*/
     Eigen::MatrixXd Xa;
     LmsReturn teste;
     for (int i = 0; i < Line1.rows(); i++)
@@ -185,67 +187,67 @@ obs: Static size matrixes were used to optimeze performance.
         Pontosh(i,0) = 3*i;
     }
 
-    Eigen::MatrixXd Long = Xa(PontosLong,0);
+    /*Eigen::MatrixXd Long = Xa(PontosLong,0);
     Eigen::MatrixXd Lat = Xa(PontosLat,0);
-    Eigen::MatrixXd h = Xa(Pontosh,0);
-
-    //iterative method
-    
-    /*
-    This section uses B,L,H to represent Geodetic Latitude and Longitude and Geometric Height for both images, respectively
-    However, in order to make the code more readable, the abreviations of the coordinates were added.
-    */
-
-    for(int i = 0; i<Long.rows();i++){
-        for(int j = 0; j<3; j++){
-            //Preivous Coordinates Normalization for both images
-
-            double B_Img1 = ElementNormalization(Lat(i,j),latCorrection1.off,latCorrection1.scale);
-            double L_Img1 = ElementNormalization(Long(i,j),longCorrection1.off,longCorrection1.scale);
-            double H_Img1 = ElementNormalization(h(i,j),hCorrection1.off,hCorrection1.scale);
-
-            double B_Img2 = ElementNormalization(Lat(i,j),latCorrection2.off,latCorrection2.scale);
-            double L_Img2 = ElementNormalization(Long(i,j),longCorrection2.off,longCorrection2.scale);
-            double H_Img2 = ElementNormalization(h(i,j),hCorrection2.off,hCorrection2.scale);
-            
-            /*
-            Image's Line (l) and Collumn (s) correspondent to 
-            this iteration's Ground Coordinates normalized above
-            */
-
-            double l_LineImg1 = Polrfm(B_Img1,L_Img1,H_Img1, Coefs_Img1.a) / Polrfm(B_Img1,L_Img1,H_Img1, Coefs_Img1.b);
-            double s_CollumnImg1 = Polrfm(B_Img1,L_Img1,H_Img1, Coefs_Img1.c) / Polrfm(B_Img1,L_Img1,H_Img1, Coefs_Img1.d);
-
-            double l_LineImg2 = Polrfm(B_Img2,L_Img2,H_Img2, Coefs_Img2.a) / Polrfm(B_Img2,L_Img2,H_Img2, Coefs_Img2.b);
-            double s_CollumnImg2 = Polrfm(B_Img2,L_Img2,H_Img2, Coefs_Img2.c) / Polrfm(B_Img2,L_Img2,H_Img2, Coefs_Img2.d);
-        
-            /*
-            The parameters ajustment is done through a Least Squares
-            just like the Initial Aproximation.
-            */
-
-            A << Deriv_L(B_Img1, L_Img1, H_Img1, Coefs_Img1.a, Coefs_Img1.b)/longCorrection1.scale, Deriv_B(B_Img1, L_Img1, H_Img1, Coefs_Img1.a, Coefs_Img1.b)/latCorrection1.scale, Deriv_H(B_Img1, L_Img1, H_Img1, Coefs_Img1.a, Coefs_Img1.b)/hCorrection1.scale;
-                 Deriv_L(B_Img1, L_Img1, H_Img1, Coefs_Img1.c, Coefs_Img1.d)/longCorrection1.scale, Deriv_B(B_Img1, L_Img1, H_Img1, Coefs_Img1.c, Coefs_Img1.d)/latCorrection1.scale, Deriv_H(B_Img1, L_Img1, H_Img1, Coefs_Img1.c, Coefs_Img1.d)/hCorrection1.scale;
-                 Deriv_L(B_Img2, L_Img2, H_Img2, Coefs_Img2.a, Coefs_Img2.b)/longCorrection2.scale, Deriv_B(B_Img2, L_Img2, H_Img2, Coefs_Img2.a, Coefs_Img2.b)/latCorrection2.scale, Deriv_H(B_Img2, L_Img2, H_Img2, Coefs_Img2.a, Coefs_Img2.b)/hCorrection2.scale;
-                 Deriv_L(B_Img2, L_Img2, H_Img2, Coefs_Img2.c, Coefs_Img2.d)/longCorrection2.scale, Deriv_B(B_Img2, L_Img2, H_Img2, Coefs_Img2.c, Coefs_Img2.d)/latCorrection2.scale, Deriv_H(B_Img2, L_Img2, H_Img2, Coefs_Img2.c, Coefs_Img2.d)/hCorrection2.scale;
-
-            L << l1(0,0) - l_LineImg1,
-                 s1(0,0) - s_CollumnImg1,
-                 l2(0,0) - l_LineImg2,
-                 s2(0,0) - s_CollumnImg2;
-            
-            Eigen::MatrixXd X = LeastMinSquare(A,L).Xa; //previous mmq
-
-            Long(i,0) = Long(i,0) + X(0,0);
-            Lat(i,0) = Lat(i,0) + X(1,0);
-            h(i,0) = h(i,0) + X(2,0);
-        }
-    }
-
+    Eigen::MatrixXd h = Xa(Pontosh,0);*/
+//
+//    //iterative method
+//    
+//    /*
+//    This section uses B,L,H to represent Geodetic Latitude and Longitude and Geometric Height for both images, respectively
+//    However, in order to make the code more readable, the abreviations of the coordinates were added.
+//    */
+//
+//    for(int i = 0; i<Long.rows();i++){
+//        for(int j = 0; j<3; j++){
+//            //Preivous Coordinates Normalization for both images
+//
+//            double B_Img1 = ElementNormalization(Lat(i,j),latCorrection1.off,latCorrection1.scale);
+//            double L_Img1 = ElementNormalization(Long(i,j),longCorrection1.off,longCorrection1.scale);
+//            double H_Img1 = ElementNormalization(h(i,j),hCorrection1.off,hCorrection1.scale);
+//
+//            double B_Img2 = ElementNormalization(Lat(i,j),latCorrection2.off,latCorrection2.scale);
+//            double L_Img2 = ElementNormalization(Long(i,j),longCorrection2.off,longCorrection2.scale);
+//            double H_Img2 = ElementNormalization(h(i,j),hCorrection2.off,hCorrection2.scale);
+//            
+//            /*
+//            Image's Line (l) and Collumn (s) correspondent to 
+//            this iteration's Ground Coordinates normalized above
+//            */
+//
+//            double l_LineImg1 = Polrfm(B_Img1,L_Img1,H_Img1, Coefs_Img1.a) / Polrfm(B_Img1,L_Img1,H_Img1, Coefs_Img1.b);
+//            double s_CollumnImg1 = Polrfm(B_Img1,L_Img1,H_Img1, Coefs_Img1.c) / Polrfm(B_Img1,L_Img1,H_Img1, Coefs_Img1.d);
+//
+//            double l_LineImg2 = Polrfm(B_Img2,L_Img2,H_Img2, Coefs_Img2.a) / Polrfm(B_Img2,L_Img2,H_Img2, Coefs_Img2.b);
+//            double s_CollumnImg2 = Polrfm(B_Img2,L_Img2,H_Img2, Coefs_Img2.c) / Polrfm(B_Img2,L_Img2,H_Img2, Coefs_Img2.d);
+//        
+//            /*
+//            The parameters ajustment is done through a Least Squares
+//            just like the Initial Aproximation.
+//            */
+//
+//            A << Deriv_L(B_Img1, L_Img1, H_Img1, Coefs_Img1.a, Coefs_Img1.b)/longCorrection1.scale, Deriv_B(B_Img1, L_Img1, H_Img1, Coefs_Img1.a, Coefs_Img1.b)/latCorrection1.scale, Deriv_H(B_Img1, L_Img1, H_Img1, Coefs_Img1.a, Coefs_Img1.b)/hCorrection1.scale;
+//                 Deriv_L(B_Img1, L_Img1, H_Img1, Coefs_Img1.c, Coefs_Img1.d)/longCorrection1.scale, Deriv_B(B_Img1, L_Img1, H_Img1, Coefs_Img1.c, Coefs_Img1.d)/latCorrection1.scale, Deriv_H(B_Img1, L_Img1, H_Img1, Coefs_Img1.c, Coefs_Img1.d)/hCorrection1.scale;
+//                 Deriv_L(B_Img2, L_Img2, H_Img2, Coefs_Img2.a, Coefs_Img2.b)/longCorrection2.scale, Deriv_B(B_Img2, L_Img2, H_Img2, Coefs_Img2.a, Coefs_Img2.b)/latCorrection2.scale, Deriv_H(B_Img2, L_Img2, H_Img2, Coefs_Img2.a, Coefs_Img2.b)/hCorrection2.scale;
+//                 Deriv_L(B_Img2, L_Img2, H_Img2, Coefs_Img2.c, Coefs_Img2.d)/longCorrection2.scale, Deriv_B(B_Img2, L_Img2, H_Img2, Coefs_Img2.c, Coefs_Img2.d)/latCorrection2.scale, Deriv_H(B_Img2, L_Img2, H_Img2, Coefs_Img2.c, Coefs_Img2.d)/hCorrection2.scale;
+//
+//            L << l1(0,0) - l_LineImg1,
+//                 s1(0,0) - s_CollumnImg1,
+//                 l2(0,0) - l_LineImg2,
+//                 s2(0,0) - s_CollumnImg2;
+//            
+//            Eigen::MatrixXd X = LeastMinSquare(A,L).Xa; //previous mmq
+//
+//            Long(i,0) = Long(i,0) + X(0,0);
+//            Lat(i,0) = Lat(i,0) + X(1,0);
+//            h(i,0) = h(i,0) + X(2,0);
+//        }
+//    }
+//
     Coordinates SpacialInterssectionReturn;
-    SpacialInterssectionReturn.Long = Long;
+    /*SpacialInterssectionReturn.Long = Long;
     SpacialInterssectionReturn.Lat = Lat;
-    SpacialInterssectionReturn.Height = h;
+    SpacialInterssectionReturn.Height = h;*/
 
     return SpacialInterssectionReturn;
   
