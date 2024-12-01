@@ -1,18 +1,28 @@
 #include <iostream>
 #include "../includes/Eigen/Dense"
-#include "Nor.hpp"
-#include "Polrfm.hpp"
-#include "Deriv_H.hpp"
-#include "Deriv_B.hpp"
-#include "Deriv_L.hpp"
-#include "Lms.hpp"
-#include "img2terrain.hpp"
+#include "../headers/Nor.hpp"
+#include "../headers/Polrfm.hpp"
+#include "../headers/Deriv_H.hpp"
+#include "../headers/Deriv_B.hpp"
+#include "../headers/Deriv_L.hpp"
+#include "../headers/Lms.hpp"
+#include "../headers/img2terrain.hpp"
 // Function to test
 //Coordinates SpacialInterssection(Coeficients Coefs_Img1, Coeficients Coefs_Img2, Eigen::MatrixXd Line1, Eigen::MatrixXd Sample1, Eigen::MatrixXd Line2, Eigen::MatrixXd Sample2, CorrectionValues l1Correction, CorrectionValues s1Correction, CorrectionValues l2Correction, CorrectionValues s2Correction, CorrectionValues latCorrection1, CorrectionValues longCorrection1, CorrectionValues hCorrection1, CorrectionValues latCorrection2, CorrectionValues longCorrection2, CorrectionValues hCorrection2);
 
 int main() {
     // Mock data for testing
      Coeficients Coefs_Img1, Coefs_Img2;
+     Coefs_Img1.a.resize(20, 1);
+    Coefs_Img1.b.resize(20, 1);
+    Coefs_Img1.c.resize(20, 1);
+    Coefs_Img1.d.resize(20, 1);
+
+    Coefs_Img2.a.resize(20, 1);
+    Coefs_Img2.b.resize(20, 1);
+    Coefs_Img2.c.resize(20, 1);
+    Coefs_Img2.d.resize(20, 1);
+    
     Coefs_Img1.a << 0.0026527,
                     0.065984,
                     -1.0491,
@@ -181,10 +191,10 @@ int main() {
                     3.9622e-07,
                     0;
 
-    Eigen::MatrixXd Line1;
-    Eigen::MatrixXd Sample1;
-    Eigen::MatrixXd Line2;
-    Eigen::MatrixXd Sample2;
+    Eigen::MatrixXd Line1(4,1);
+    Eigen::MatrixXd Sample1(4,1);
+    Eigen::MatrixXd Line2(4,1);
+    Eigen::MatrixXd Sample2(4,1);
     
     Line1 << 7529,
              23398,
