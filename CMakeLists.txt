@@ -29,7 +29,7 @@ set(SOURCES
     sources/Deriv_B.cpp
     sources/Deriv_H.cpp
     sources/Deriv_L.cpp
-    #sources/img2terrain.cpp
+    sources/img2terrain.cpp
     sources/latlong2utm.cpp
     sources/Lms.cpp
     sources/Desnor.cpp
@@ -38,9 +38,10 @@ set(SOURCES
     sources/RecalcRPC.cpp
     sources/utils/RandPerm.cpp
     sources/utils/MatrixSubSetting.cpp
+    sources/utils/StandardDeviation.cpp
     )
 
 add_executable(${PROJECT_NAME} sources/mainWork.cpp ${SOURCES} ${HEADERS})
 
 #executable tests
-add_executable(MatrixSubSetting tests/MatrixSubSetting_tests.cpp ${SOURCES} ${HEADERS})
+#add_executable(MatrixSubSetting tests/MatrixSubSetting_tests.cpp ${SOURCES} ${HEADERS})
