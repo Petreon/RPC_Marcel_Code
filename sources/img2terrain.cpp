@@ -167,7 +167,7 @@ to aproximate initial values for the line and collumn of the pixel in both image
              l2(i,0)*b0_Img2 - a0_Img2, 
              s2(i,0)*d0_Img2 - c0_Img2;
 
-        teste = LeastMinSquare(A,L); //previous mmq
+        teste = LeastMinSquare(A,L); // Least Minimum Square
         Xa = teste.Xa;
     }
 
@@ -310,7 +310,7 @@ to aproximate initial values for the line and collumn of the pixel in both image
             // Print statement for performing Least Squares adjustment
             std::cout << "Performing Least Squares adjustment." << std::endl;
 
-            Eigen::MatrixXd X = LeastMinSquare(A,L).Xa; //previous mmq
+            Eigen::MatrixXd X = LeastMinSquare(A,L).Xa; // Least Minimum Square
 
             // Print statement for updating coordinates
             std::cout << "Updating coordinates." << std::endl;

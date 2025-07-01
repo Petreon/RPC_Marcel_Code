@@ -76,14 +76,14 @@ AffineReturn Affine(Eigen::MatrixXd Line, Eigen::MatrixXd Sample, Eigen::MatrixX
     L_matrix.block(4, 0, line_LineMeas.rows(), 1) = Sample_SampleMeas;
     // std::cout << L_matrix << std::endl;
 
-    // what is mmq operation
-    LmsReturn mmqOperation = LeastMinSquare(A_matrix, L_matrix);
+    // Least Minimum Square operation
+    LmsReturn lmsOperation = LeastMinSquare(A_matrix, L_matrix);
 
     // Xa need to be 6x1 and V 8x1
-    Xa_V_Matrixes.Xa = mmqOperation.Xa;
-    Xa_V_Matrixes.V = mmqOperation.V;
+    Xa_V_Matrixes.Xa = lmsOperation.Xa;
+    Xa_V_Matrixes.V = lmsOperation.V;
 
-    // std::cout << "MMq result inside Affine:" << std::endl;
+    // std::cout << "Least Minimum Square result inside Affine:" << std::endl;
     // std::cout << Xa_V_Matrixes.Xa << std::endl;
     // std::cout << Xa_V_Matrixes.V << std::endl;
 

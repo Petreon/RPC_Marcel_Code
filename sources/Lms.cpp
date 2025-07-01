@@ -5,7 +5,7 @@
 
 LmsReturn LeastMinSquare(Eigen::MatrixXd A, Eigen::MatrixXd L)
 {
-    // this functions means for MMQ in the project that is Least minimum square
+    // this function calculates the Least Minimum Square
     // this function is ready
     LmsReturn ObjReturned;
 
