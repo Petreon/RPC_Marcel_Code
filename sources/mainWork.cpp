@@ -7,7 +7,9 @@
 #include "RecalcRPC.hpp"
 #include "StandardDeviation.hpp"
 #include "mainWork.hpp"
-
+#include "utils/FileLoader.hpp"
+#include "Nor.hpp"
+#include "ErrorCalculations.hpp"
 #include <stdio.h>
 #include <stdlib.h>
 /*
@@ -68,35 +70,69 @@ int main(int argc, char* argv[]){
     */
 
 
-    int trainPoints = 4;
-    int AvailablePoints = 18; // TODO: take this after reading the file and get how many points have for the application
+        int trainPoints = 4;
+    
+    std::vector<int> PontosOK = {1,2,3,6,9,14,15,26,29,30,31,32,33,36,39,43,44,46}; // 18 pontos seleção erro Sample e Line < 1*std
+    
+    Eigen::MatrixXd LAT = FileLoader::loadAndConcatenateMatrices("lat_pc.txt", "pontosadriana/lat_pc.txt", PontosOK);
+    Eigen::MatrixXd LONG = FileLoader::loadAndConcatenateMatrices("long_pc.txt", "pontosadriana/long_pc.txt", PontosOK);
+    Eigen::MatrixXd h = FileLoader::loadAndConcatenateMatrices("alt_pc.txt", "pontosadriana/alt_pc.txt", PontosOK);
 
-    Eigen::MatrixXd ErrorInSample_plan(runTimes, AvailablePoints); //Matrices to error calculation
-    Eigen::MatrixXd ErrorInSample_alt(runTimes, AvailablePoints);
-    Eigen::MatrixXd ErrorOutSample_plan(runTimes, AvailablePoints);
-    Eigen::MatrixXd ErrorOutSample_alt(runTimes, AvailablePoints);
+    Eigen::MatrixXd Line1 = FileLoader::loadAndConcatenateMatrices("l1_pc.txt", "pontosadriana/l1_pc.txt", PontosOK);
+    Eigen::MatrixXd Sample1 = FileLoader::loadAndConcatenateMatrices("c1_pc.txt", "pontosadriana/c1_pc.txt", PontosOK);
+    Eigen::MatrixXd Line2 = FileLoader::loadAndConcatenateMatrices("l2_pc.txt", "pontosadriana/l2_pc.txt", PontosOK);
+    Eigen::MatrixXd Sample2 = FileLoader::loadAndConcatenateMatrices("c2_pc.txt", "pontosadriana/c2_pc.txt", PontosOK);
 
+    int AvailablePoints = LAT.rows();
 
-    Eigen::MatrixXd LAT(AvailablePoints, 1);    //TODO: awating Pedro's implementation
-    Eigen::MatrixXd LONG(AvailablePoints, 1);   //TODO: awating Pedro's implementation
-    Eigen::MatrixXd h(AvailablePoints, 1);      //TODO: awating Pedro's implementation
+    Eigen::MatrixXd ErrorInSample_plan(runTimes, 4); //Matrices to error calculation
+    Eigen::MatrixXd ErrorInSample_alt(runTimes, 4);
+    Eigen::MatrixXd ErrorOutSample_plan(runTimes, 4);
+    Eigen::MatrixXd ErrorOutSample_alt(runTimes, 4);
 
+    // RPCs For the 1° image
+    Eigen::MatrixXd a1 = FileLoader::loadMatrixFromFile("coef_a1.txt");
+    Eigen::MatrixXd b1 = FileLoader::loadMatrixFromFile("coef_b1.txt");
+    Eigen::MatrixXd c1 = FileLoader::loadMatrixFromFile("coef_c1.txt");
+    Eigen::MatrixXd d1 = FileLoader::loadMatrixFromFile("coef_d1.txt");
+    // RPCs for the 2° image
+    Eigen::MatrixXd a2 = FileLoader::loadMatrixFromFile("coef_a2.txt");
+    Eigen::MatrixXd b2 = FileLoader::loadMatrixFromFile("coef_b2.txt");
+    Eigen::MatrixXd c2 = FileLoader::loadMatrixFromFile("coef_c2.txt");
+    Eigen::MatrixXd d2 = FileLoader::loadMatrixFromFile("coef_d2.txt");
 
     //Control Points in Coordinates
-    Eigen::MatrixXd B1_pc(AvailablePoints, 1); //This is variable depending on how many point disponible you have
-    Eigen::MatrixXd L1_pc(AvailablePoints, 1);
-    Eigen::MatrixXd H1_pc(AvailablePoints, 1);
+    // These are normalized coordinates, so they will be calculated later
+    Eigen::MatrixXd B1_pc; 
+    Eigen::MatrixXd L1_pc;
+    Eigen::MatrixXd H1_pc;
 
-    Eigen::MatrixXd B2_pc(AvailablePoints, 1);
-    Eigen::MatrixXd L2_pc(AvailablePoints, 1);
-    Eigen::MatrixXd H2_pc(AvailablePoints, 1);
+    Eigen::MatrixXd B2_pc;
+    Eigen::MatrixXd L2_pc;
+    Eigen::MatrixXd H2_pc;
 
-    //Control Points in Pixel
-    Eigen::MatrixXd Line1(AvailablePoints, 1);
-    Eigen::MatrixXd Sample1(AvailablePoints, 1); // in reality this is Colmun pixel of the controls point in the image, 
+    // 4 NORMALIZA CONJUNTO DE PONTOS
 
-    Eigen::MatrixXd Line2(AvailablePoints, 1);
-    Eigen::MatrixXd Sample2(AvailablePoints, 1); // in reality this is Colmun pixel of the controls point in the image //TODO: Change to column
+    // 4.1 Para a imagem 1
+    CorrectionValues latCorrection1_nor, longCorrection1_nor, hCorrection1_nor;
+    latCorrection1_nor.off = LAT_OFF1; latCorrection1_nor.scale = LAT_SCALE1;
+    longCorrection1_nor.off = LONG_OFF1; longCorrection1_nor.scale = LONG_SCALE1;
+    hCorrection1_nor.off = HEIGHT_OFF1; hCorrection1_nor.scale = HEIGHT_SCALE1;
+
+    B1_pc = Normalization(LAT, latCorrection1_nor);
+    L1_pc = Normalization(LONG, longCorrection1_nor);
+    H1_pc = Normalization(h, hCorrection1_nor);
+
+    // 4.2 Para a imagem 2
+    CorrectionValues latCorrection2_nor, longCorrection2_nor, hCorrection2_nor;
+    latCorrection2_nor.off = LAT_OFF2; latCorrection2_nor.scale = LAT_SCALE2;
+    longCorrection2_nor.off = LONG_OFF2; longCorrection2_nor.scale = LONG_SCALE2;
+    hCorrection2_nor.off = HEIGHT_OFF2; hCorrection2_nor.scale = HEIGHT_SCALE2;
+
+    B2_pc = Normalization(LAT, latCorrection2_nor);
+    L2_pc = Normalization(LONG, longCorrection2_nor);
+    H2_pc = Normalization(h, hCorrection2_nor);
+
 
 
     Coeficients Coef_Img1, Coef_Img2, Coef_Img1_new, Coef_Img2_new; //Structure used to SpacialInterssection function
@@ -194,19 +230,19 @@ int main(int argc, char* argv[]){
         //To this part i will divide it in functions
             // 7.1 Para os pontos de treinamento
 
-        PlanimetricErrorReturn Train_desv_erro_plan_before  = PlanimetricError(LAT_LONG_to_E_N_F, Train_E_N_F_intersec_before, IndexTrain);
+        PlanimetricErrorReturn Train_desv_erro_plan_before  = calculatePlanimetricError(LAT_LONG_to_E_N_F, Train_E_N_F_intersec_before, IndexTrain);
         
-        PlanimetricErrorReturn Train_desv_erro_plan_after   = PlanimetricError(LAT_LONG_to_E_N_F, Train_E_N_F_intersec_after, IndexTrain);
+        PlanimetricErrorReturn Train_desv_erro_plan_after   = calculatePlanimetricError(LAT_LONG_to_E_N_F, Train_E_N_F_intersec_after, IndexTrain);
 
         //// Altimétrico
 
         //Train_erro_alt_antes = abs(h(IndexTrain, :) - Train_h_intersec_antes);
         //Train_desv_erro_alt_antes = std(Train_erro_alt_antes);
-        AltimetricErrorReturn Train_erro_alt_before = AltimetricError(h, Train_intersec_lat_long_h_before.Height, IndexTrain);
+        AltimetricErrorReturn Train_erro_alt_before = calculateAltimetricError(h, Train_intersec_lat_long_h_before.Height, IndexTrain);
 
         //Train_erro_alt_depois = abs(h(IndexTrain, :) - Train_h_intersec_depois);
         //Train_desv_erro_alt_depois = std(Train_erro_alt_depois);
-        AltimetricErrorReturn Train_erro_alt_after = AltimetricError(h, Train_intersec_lat_long_h_after.Height, IndexTrain);
+        AltimetricErrorReturn Train_erro_alt_after = calculateAltimetricError(h, Train_intersec_lat_long_h_after.Height, IndexTrain);
 
 
         //// 7.2 Para os pontos de teste
@@ -215,22 +251,22 @@ int main(int argc, char* argv[]){
 
         //Test_erro_plan_antes = sqrt((LAT_E(IndexTest, :) - Test_E_intersec_antes). ^ 2 + (LONG_N(IndexTest, :) - Test_N_intersec_antes). ^ 2);
         //Test_desv_erro_plan_antes = std(Test_erro_plan_antes);
-        PlanimetricErrorReturn Tests_desv_erro_plan_before = PlanimetricError(LAT_LONG_to_E_N_F, Tests_E_N_F_intersec_before, IndexTest);
+        PlanimetricErrorReturn Tests_desv_erro_plan_before = calculatePlanimetricError(LAT_LONG_to_E_N_F, Tests_E_N_F_intersec_before, IndexTest);
 
 
         //Test_erro_plan_depois = sqrt((LAT_E(IndexTest, :) - Test_E_intersec_depois). ^ 2 + (LONG_N(IndexTest, :) - Test_N_intersec_depois). ^ 2);
         //Test_desv_erro_plan_depois = std(Test_erro_plan_depois);
-        PlanimetricErrorReturn Tests_desv_erro_plan_after = PlanimetricError(LAT_LONG_to_E_N_F, Tests_E_N_F_intersec_after, IndexTest);
+        PlanimetricErrorReturn Tests_desv_erro_plan_after = calculatePlanimetricError(LAT_LONG_to_E_N_F, Tests_E_N_F_intersec_after, IndexTest);
 
         //// Altimétrico
 
         //Test_erro_alt_antes = abs(h(IndexTest, :) - Test_h_intersec_antes);
         //Test_desv_erro_alt_antes = std(Test_erro_alt_antes);
-        AltimetricErrorReturn Tests_erro_alt_before = AltimetricError(h, Tests_intersec_lat_long_h_before.Height, IndexTest);
+        AltimetricErrorReturn Tests_erro_alt_before = calculateAltimetricError(h, Tests_intersec_lat_long_h_before.Height, IndexTest);
 
         //Test_erro_alt_depois = abs(h(IndexTest, :) - Test_h_intersec_depois);
         //Test_desv_erro_alt_depois = std(Test_erro_alt_depois);
-        AltimetricErrorReturn Tests_erro_alt_after = AltimetricError(h, Tests_intersec_lat_long_h_after.Height, IndexTest);
+        AltimetricErrorReturn Tests_erro_alt_after = calculateAltimetricError(h, Tests_intersec_lat_long_h_after.Height, IndexTest);
 
 
         //% 8 Cálculo do ErrorInSample e do ErrorOutSample planimétrico e altimétrico
@@ -253,11 +289,12 @@ int main(int argc, char* argv[]){
         //    % Planimétrico
 
         //    ErrorOutSample_plan = [ErrorOutSample_plan; [mean(Test_erro_plan_antes), mean(Test_erro_plan_depois), std(Test_erro_plan_antes), std(Test_erro_plan_depois)] ];
-        CalculateSampleError(ErrorInSample_plan, i, Train_desv_erro_plan_before.Error_planimetric.mean(), Train_desv_erro_plan_after.Error_planimetric.mean(), StandardDeviation(Train_desv_erro_plan_before.Error_planimetric), StandardDeviation(Train_desv_erro_plan_after.Error_planimetric));
+        CalculateSampleError(ErrorOutSample_plan, i, Tests_desv_erro_plan_before.Error_planimetric.mean(), Tests_desv_erro_plan_after.Error_planimetric.mean(), StandardDeviation(Tests_desv_erro_plan_before.Error_planimetric), StandardDeviation(Tests_desv_erro_plan_after.Error_planimetric));
 
         //% Altimétrico
 
         //   ErrorOutSample_alt = [ErrorOutSample_alt; [mean(Test_erro_alt_antes), mean(Test_erro_alt_depois), std(Test_erro_alt_antes), std(Test_erro_alt_depois)] ];
+        CalculateSampleError(ErrorOutSample_alt, i, Tests_erro_alt_before.Error_Altimetric.mean(), Tests_erro_alt_after.Error_Altimetric.mean(), StandardDeviation(Tests_erro_alt_before.Error_Altimetric), StandardDeviation(Tests_erro_alt_after.Error_Altimetric));
 
 
     }
@@ -272,51 +309,3 @@ int main(int argc, char* argv[]){
     return 0;
 }
 
-/*
-* TODO: Refactor this implementation in another file
-*/
-
-
-PlanimetricErrorReturn PlanimetricError(CoordinatesUTM LAT_LONG_to_E_N_F, CoordinatesUTM Train_E_N_F_Intersec_x, Eigen::MatrixXd IndexTrain) {
-    // Planimétrico
-    PlanimetricErrorReturn calcs;
-    //Train_erro_plan_antes = sqrt((LAT_E(IndexTrain, :) - Train_E_intersec_antes). ^ 2 + (LONG_N(IndexTrain, :) - Train_N_intersec_antes). ^ 2);
-    Eigen::MatrixXd LAT_E   = MatrixSubSetting(LAT_LONG_to_E_N_F.East, IndexTrain);
-    Eigen::MatrixXd LONG_N  = MatrixSubSetting(LAT_LONG_to_E_N_F.North, IndexTrain);
-    
-    Eigen::MatrixXd Train_erro_plan_antes = ( (LAT_E - Train_E_N_F_Intersec_x.East).array().pow(2) + (LONG_N - Train_E_N_F_Intersec_x.North).array().pow(2));
-    Train_erro_plan_antes = Train_erro_plan_antes.array().sqrt();
-   
-    double Train_desv_erro_plan_antes = StandardDeviation(Train_erro_plan_antes);
-    
-    calcs.Error_planimetric = Train_erro_plan_antes;
-    calcs.std_Error_plan    = Train_desv_erro_plan_antes;
-
-    return calcs;
-}
-
-
-AltimetricErrorReturn AltimetricError(Eigen::MatrixXd h, Eigen::MatrixXd Matrix_h_intersec, Eigen::MatrixXd IndexTrain) {
-    // Planimétrico
-    AltimetricErrorReturn calcs;
-
-    //Test_erro_alt_antes = abs(h(IndexTest, :) - Test_h_intersec_antes);
-    Eigen::MatrixXd new_h = MatrixSubSetting(h, IndexTrain);
-
-    Eigen::MatrixXd Test_erro_alt_antes = (new_h - Matrix_h_intersec).array().abs();
-    double desv_erro_alt    = StandardDeviation(Test_erro_alt_antes);
-
-    calcs.Error_Altimetric  = Test_erro_alt_antes;
-    calcs.std_Error_alti    = desv_erro_alt;
-
-    return calcs;
-}
-
-Eigen::MatrixXd CalculateSampleError(Eigen::MatrixXd errorMatrix, int iterator, double mean_erro_plan_before, double mean_Train_erro_plan_after, double std_Train_erro_plan_antes, double std_Train_erro_plan_depois) {
-
-    errorMatrix(iterator, 0) = mean_erro_plan_before;
-    errorMatrix(iterator, 1) = mean_Train_erro_plan_after;
-    errorMatrix(iterator, 2) = std_Train_erro_plan_antes;
-    errorMatrix(iterator, 3) = std_Train_erro_plan_depois;
-
-}
