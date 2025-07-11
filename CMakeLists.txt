@@ -14,8 +14,11 @@ file(GLOB_RECURSE HEADERS "headers/*.hpp")
 # Find all source files
 file(GLOB_RECURSE SOURCES "sources/*.cpp")
 
-# Add the main executable
-add_executable(${PROJECT_NAME} sources/mainWork.cpp ${SOURCES} ${HEADERS})
+# Exclude mainWork.cpp from the library sources
+list(REMOVE_ITEM SOURCES "sources/mainWork.cpp")
+
+# Create a library with all the common source files
+add_library(rpc_lib STATIC ${SOURCES})
 
 # Enable testing with CTest
 enable_testing()
@@ -28,9 +31,14 @@ foreach(test_file ${TESTS})
     # Get the test name from the file name
     get_filename_component(test_name ${test_file} NAME_WE)
     
-    # Add the test executable
-    add_executable(${test_name} ${test_file} ${SOURCES} ${HEADERS})
+    # Add the test executable and link it to the library
+    add_executable(${test_name} ${test_file})
+    target_link_libraries(${test_name} rpc_lib)
     
     # Add the test to CTest
     add_test(NAME ${test_name} COMMAND ${test_name})
 endforeach()
+
+# Add the main executable and link it to the library
+add_executable(${PROJECT_NAME} sources/mainWork.cpp)
+target_link_libraries(${PROJECT_NAME} rpc_lib)
