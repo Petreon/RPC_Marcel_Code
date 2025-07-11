@@ -4,44 +4,33 @@ project(RPC_MARCEL_CODE)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 set(CMAKE_BUILD_TYPE Debug)
-set(CMAKE)
 
-#include directories
-
+# Include directories
 include_directories(headers headers/utils includes/Eigen)
 
-#set(HEADERS
-#     headers/mainWork.hpp
-#    headers/Affine.hpp
-#    headers/Deriv_B.hpp
-#    headers/Deriv_H.hpp
-#    headers/Deriv_L.hpp
-#    #headers/img2terrain.hpp
- #   headers/latlong2utm.hpp
-  #  headers/mmq.hpp
-   # headers/Nor.hpp
-   # headers/Polrfm.hpp
-   # headers/RecalcRPC.hpp
-   # headers/utils/RandPerm.hpp)
+# Find all header files
+file(GLOB_RECURSE HEADERS "headers/*.hpp")
 
-set(SOURCES
-    sources/Affine.cpp
-    sources/Deriv_B.cpp
-    sources/Deriv_H.cpp
-    sources/Deriv_L.cpp
-    sources/img2terrain.cpp
-    sources/latlong2utm.cpp
-    sources/Lms.cpp
-    sources/Desnor.cpp
-    sources/Nor.cpp
-    sources/Polrfm.cpp
-    sources/RecalcRPC.cpp
-    sources/utils/RandPerm.cpp
-    sources/utils/MatrixSubSetting.cpp
-    sources/utils/StandardDeviation.cpp
-    )
+# Find all source files
+file(GLOB_RECURSE SOURCES "sources/*.cpp")
 
+# Add the main executable
 add_executable(${PROJECT_NAME} sources/mainWork.cpp ${SOURCES} ${HEADERS})
 
-#executable tests
-#add_executable(MatrixSubSetting tests/MatrixSubSetting_tests.cpp ${SOURCES} ${HEADERS})
+# Enable testing with CTest
+enable_testing()
+
+# Find all test files
+file(GLOB_RECURSE TESTS "tests/*.cpp")
+
+# Add a test for each test file
+foreach(test_file ${TESTS})
+    # Get the test name from the file name
+    get_filename_component(test_name ${test_file} NAME_WE)
+    
+    # Add the test executable
+    add_executable(${test_name} ${test_file} ${SOURCES} ${HEADERS})
+    
+    # Add the test to CTest
+    add_test(NAME ${test_name} COMMAND ${test_name})
+endforeach()
