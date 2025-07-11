@@ -30,7 +30,7 @@ int main()
 
     std::cout <<"Matrix pre normalizacao:\n" << mat << "\n" << std::endl;
 
-    std::cout <<"Matrix pos normalizacao:\n" <<  Normalization(mat,&line) << "\n" <<std::endl; //need to check thi again
+    std::cout <<"Matrix pos normalizacao:\n" <<  Normalization(mat,line) << "\n" <<std::endl; //need to check thi again
 
     return 0;
 }
